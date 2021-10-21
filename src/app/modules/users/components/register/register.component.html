@@ -1,0 +1,238 @@
+<div class="container1">
+  <div class="pagelabel">
+    <div class="row" style="margin-bottom: 2px;">
+      <div class="col-sm-6">
+        <ol class="pagetitle" style="margin-bottom: 0rem;"> নতুন কর্মকর্তা নিবন্ধন </ol>
+      </div>
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-2">
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mx-auto">
+      <div class="card">
+
+        <div class="card-body p-3">
+          <form #employeeRegtForm="ngForm" (submit)="saveEmployee()" >
+            <h5>ব্যক্তিগত তথ্য</h5>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="knownAs">নাম (বাংলা)</label>
+                  <input type="text" class="form-control" name="knownAsBangla" id="knownAsBangla"
+                  [(ngModel)]="model.knownAsBangla" placeholder="কর্মকর্তার নাম লিখুন" required>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="email">ই-মেইল </label>
+                  <input type="text" class="form-control" name="email" id="email"
+                  [(ngModel)]="model.email" placeholder="কর্মকর্তার ই-মেইল" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="fatherName">পিতার নাম (বাংলা)</label>
+                  <input type="text" class="form-control" name="fatherNameBangla" id="fatherNameBangla"
+                  [(ngModel)]="model.fatherNameBangla" placeholder="কর্মকর্তার পিতার নাম" required>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="motherName">মাতার নাম (বাংলা)</label>
+                  <input type="text" class="form-control" name="motherNameBangla" id="motherNameBangla"
+                  [(ngModel)]="model.motherNameBangla" placeholder="কর্মকর্তার মাতার নাম" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="dateOfBirth">জন্ম তারিখ </label>
+                  <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth"
+                  [(ngModel)]="model.dateOfBirth" placeholder="কর্মকর্তার জন্ম তারিখ" required>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="nid">জাতীয় পরিচয়পত্র নং </label>
+                  <input type="text" class="form-control" name="nid" id="nid"
+                  [(ngModel)]="model.nid" placeholder="কর্মকর্তার জাতীয় পরিচয়পত্র নং" required>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="birthRegNo">জন্ম নিবন্ধন নং</label>
+                  <input type="text" class="form-control" name="birthRegNo" id="birthRegNo"
+                  [(ngModel)]="model.birthRegNo" placeholder="কর্মকর্তার জন্ম নিবন্ধন নং">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="birthRegNo">পাসপোর্ট নং</label>
+                  <input type="text" class="form-control" name="passportNo" id="passportNo"
+                  [(ngModel)]="model.passportNo" placeholder="কর্মকর্তার পাসপোর্ট নং">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="phone">ফোন নম্বর</label>
+                  <input type="text" class="form-control" name="phone" id="phone"
+                  [(ngModel)]="model.phone" placeholder="কর্মকর্তার ব্যক্তিগত ফোন নম্বর" required>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="gender">লিঙ্গ </label>
+                  <select class="form-control" name="gender" id="gender"
+                    [(ngModel)]="model.gender" >
+                    <option value="পুরুষ">পুরুষ</option>
+                    <option value="মহিলা">মহিলা</option>
+                    <option value="অন্যান্য">অন্যান্য</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="religion">ধর্ম</label>
+                  <select class="form-control" name="religion" id="religion"
+                    [(ngModel)]="model.religion" >
+                    <option value="ইসলাম">ইসলাম</option>
+                    <option value="হিন্দু">হিন্দু</option>
+                    <option value="খৃষ্টান">খৃষ্টান</option>
+                    <option value="বৌদ্ধ">বৌদ্ধ</option>
+                    <option value="অন্যান্য">অন্যান্য</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="bloodGroup">রক্তের গ্রুপ</label>
+                  <select class="form-control" name="bloodGroup" id="bloodGroup"
+                    [(ngModel)]="model.bloodGroup" >
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <h5>পেশাগত তথ্য</h5>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="ministryId">মন্ত্রনালয়</label>
+                  <select id="ministryId" name="ministryId" [(ngModel)]="model.ministryId" (change)="loadOfficeLevels()"
+                    class="form-control" required >
+                    <option value="">- নির্বাচন করুন -</option>
+                    <option *ngFor="let ministry of ministries" [value]="ministry.id">{{ministry.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="officeLevelId">বিভাগ</label>
+                  <select id="officeLevelId" name="officeLevelId"
+                    [(ngModel)]="model.officeLevelId" (change)="onOfficeLevelChange()"
+                    class="form-control" required >
+                    <option value="">- Please Select -</option>
+                    <option *ngFor="let officeLevel of officeLevels" [value]="officeLevel.id">
+                      {{officeLevel.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="officeId">কার্যালয়</label>
+                  <select id="officeId" name="officeId" [(ngModel)]="model.officeId"
+                    class="form-control"  (change)="loadOfficeBranches()">
+                    <option value="">- নির্বাচন করুন -</option>
+                    <option *ngFor="let office of offices" [value]="office.id">{{office.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="officeId">শাখা</label>
+                  <select id="officeBranchId" name="officeBranchId" [(ngModel)]="model.branchId"
+                    class="form-control"  (change)="loadOfficeStructures()">
+                    <option value="">- নির্বাচন করুন -</option>
+                    <option *ngFor="let officeBranch of officeBranches" [value]="officeBranch.id">{{officeBranch.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="officeStructureId">পদবী</label>
+                  <select id="officeStructureId" name="officeStructureId" [(ngModel)]="model.officeStructureId"
+                    class="form-control" >
+                    <option value="">- নির্বাচন করুন -</option>
+                    <option *ngFor="let officeStructure of officeStructures" [value]="officeStructure.id">{{officeStructure.roleName}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="officeStructureId">পদবীর ধরন</label>
+                  <select id="roleType" name="roleType" [(ngModel)]="model.roleType"
+                    class="form-control">
+                    <option value="">- নির্বাচন করুন -</option>
+                    <option value="ভারপ্রাপ্ত">ভারপ্রাপ্ত</option>
+                    <option value="চলতি দায়িত্ব">চলতি দায়িত্ব</option>
+                    <option value="অতিরিক্ত দায়িত্ব">অতিরিক্ত দায়িত্ব</option>
+                    <option value="রুটিন দায়িত্ব">রুটিন দায়িত্ব</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <h5>লগইন তথ্য</h5>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="username">লগইন নাম</label>
+                  <input type="text" class="form-control" name="username" id="username"
+                    [(ngModel)]="model.username" placeholder="Username">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="password">পাসওয়ার্ড</label>
+                  <input type="text" class="form-control" name="password" id="password"
+                    [(ngModel)]="model.password" placeholder="পাসওয়ার্ড">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="birthRegNo">পাসওয়ার্ড নিশ্চিতকরুন </label>
+                  <input type="text" class="form-control" name="confirmPassword" id="confirmPassword"
+                  [(ngModel)]="model.confirmPassword" placeholder="পাসওয়ার্ড" required >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col" style="text-align: right;">
+                <button type="submit" class="btn btn-success"
+                  [disabled]="!employeeRegtForm.valid"
+                >কর্মকর্তা সংরক্ষন</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

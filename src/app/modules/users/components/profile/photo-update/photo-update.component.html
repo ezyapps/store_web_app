@@ -1,0 +1,33 @@
+<div class="container1">
+  <div class="card">
+    <div class="card-header1">
+        <!-- Angular Crop Image Tutorial Example - ItSolutionStuff.com -->
+    </div>
+    <div class="card-body">
+      <form #photoUploadForm="ngForm" (submit)="uploadPhoto()">
+      <input type="file" (change)="fileChangeEvent($event)"  accept=".png, .jpg, .jpeg" />
+      <span *ngIf="file?.inProgress" >File Upload Completed: {{file?.progress}}%</span>
+      <div class="row" style="margin-top: 15px;">
+          <div class="text-center col-md-8">
+              <h4>ছবি কাটুন</h4>
+              <image-cropper
+              [imageChangedEvent]="imageChangedEvent"
+              [maintainAspectRatio]="true"
+              [aspectRatio]="4 / 4"
+              [resizeToWidth]="256"
+              format="png"
+              (imageCropped)="imageCropped($event)"
+              (imageLoaded)="imageLoaded()"
+              (cropperReady)="cropperReady()"
+              (loadImageFailed)="loadImageFailed()"></image-cropper>
+          </div>
+          <div class="text-center col-md-4">
+              <h4>পূর্বরূপ</h4>
+              <img [src]="croppedImage" /> <br/><hr/>
+              <button type="submit" >আপলোড করুন</button>
+          </div>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

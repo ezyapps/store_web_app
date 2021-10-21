@@ -1,0 +1,43 @@
+<div id="profile-pg-bg">
+  <div class="row">
+    <div class="col-md-2">
+      <app-profile-summery></app-profile-summery>
+    </div>
+    <div class="col-md-10">
+      <tabset style="max-height: 100%; min-height:100%">
+        <tab heading="প্রোফাইল তথ্য">
+          <div class="row">
+            <div class="col">
+              <button type="button" class="btn" (click)="toggleProfileInfoView()"> {{profileEditMode==false? 'সম্পাদনা করুন':'সম্পাদনা বাতিল করুন'}} </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <app-user-profile-info *ngIf='!profileEditMode'></app-user-profile-info>
+              <app-user-profile-info-edit *ngIf='profileEditMode'></app-user-profile-info-edit>
+            </div>
+          </div>
+
+        </tab>
+        <tab heading="প্রোফাইল ছবি">
+          <div class="row">
+            <div class="col-md-12">
+              <app-profile-photo-update></app-profile-photo-update>
+            </div>
+            <!-- <div class="col-md-3">
+              <h4>বর্তমান ছবি সমূহ</h4>
+              <app-profile-photo-list></app-profile-photo-list>
+            </div> -->
+          </div>
+
+        </tab>
+        <tab heading="কর্ম ইতিহাস">
+
+        </tab>
+        <tab heading="পাসওয়ার্ড">
+
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>

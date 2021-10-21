@@ -1,0 +1,47 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12 mx-auto">
+      <div class="card shadow mx-1">
+        <!-- <div class="card-header">
+          নতুন রোল
+        </div> -->
+        <div class="card-body">
+          <form #roleForm="ngForm" (ngSubmit)="saveRole()">
+            <div class="row">
+              <div class="col-md-4 input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">জিও স্তর</span>
+                </div>
+                <select id="geoLevel" name="geoLevel" [(ngModel)]="model.geoLevel"
+                              class="form-control" required >
+                              <option [value]='0'>সর্বজনীন স্তর</option>
+                              <option [value]='1'>কেন্দ্রীয়</option>
+                              <option [value]='2'>বিভাগীয়</option>
+                              <option [value]='3'>জেলা ভিত্তিক</option>
+                              <option [value]='4'>উপজেলা ভিত্তিক</option>
+                              <option [value]='5'>ইউনিয়ন ভিত্তিক</option>
+                            </select>
+                <!-- <div class="input-group-prepend">
+                  <button type="submit" pButton [disabled]="!roleForm.valid" label='সংরক্ষন' icon="pi pi-check" iconPos="right" class="p-button-sm" ></button>
+                </div> -->
+              </div>
+              <div class="col-md-8 input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">পদের নাম</span>
+                </div>
+                <input type="text" id="roleName" name="roleName" [(ngModel)]="model.roleName" class="form-control" placeholder="" required>
+                <div class="input-group-prepend">
+                  <button type="submit" pButton [disabled]="!roleForm.valid" label='সংরক্ষন' icon="pi pi-check" iconPos="right" class="p-button-sm" ></button>
+                </div>
+              </div>
+
+            </div>
+
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

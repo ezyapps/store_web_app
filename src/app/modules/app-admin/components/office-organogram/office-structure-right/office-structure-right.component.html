@@ -1,0 +1,170 @@
+<div class="animated">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+          <div class="shadow">
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>মন্ত্রণালয়</th>
+                      <th>অফিস স্তর</th>
+                      <th>অফিস</th>
+                      <th>শাখা</th>
+                      <th>পদবী</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <select id="ministryId" name="ministryId" [(ngModel)]="model.ministryId" (change)="loadOfficeLevels()"
+                          class="form-control" required >
+                          <option value="">- Please Select -</option>
+                          <option *ngFor="let ministry of ministries" [value]="ministry.id">{{ministry.name}}</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select id="officeLevelId" name="officeLevelId"
+                          [(ngModel)]="model.officeLevelId" (change)="onOfficeLevelChange()"
+                          class="form-control" required >
+                          <option value="">- Please Select -</option>
+                          <option *ngFor="let officeLevel of officeLevels" [value]="officeLevel.id">
+                            {{officeLevel.name}}</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select id="officeId" name="officeId" [(ngModel)]="model.officeId"
+                          class="form-control"  (change)="loadOfficeBranches()">
+                          <option value="">- Please Select -</option>
+                          <option *ngFor="let office of offices" [value]="office.id">{{office.name}}</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select id="officeBranchId" name="officeBranchId" [(ngModel)]="model.branchId"
+                          class="form-control"  (change)="loadOfficeStructures()">
+                          <option value="">- Please Select -</option>
+                          <option *ngFor="let officeBranch of officeBranches" [value]="officeBranch.id">{{officeBranch.name}}</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select id="roleId" name="roleId" [(ngModel)]="structureId"
+                          class="form-control" (change)="loadAccessRights()" >
+                          <option value="">- Please Select -</option>
+                          <option *ngFor="let structure of officeStructures " [value]="structure.id">{{structure.roleName}}</option>
+                        </select>
+                      </td>
+                      <td>
+                        <button type="button" (click)="loadAccessRights()" class="btn btn-primary" > অনুসন্ধান </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <!-- <div class="card-header">
+    </div> -->
+    <div class="card-body">
+      <!-- <div class="row shadow">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="officeName">Office Name</label>
+            <label id='officeName'>{{officeStructure.officeName}}</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="branchName">Branch Name</label>
+            <label id='branchName'>{{officeStructure.branchName}}</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="roleeName">Role Name</label>
+            <label id='roleName'>{{officeStructure.roleName}}</label>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">অ্যাপস</span>
+                </div>
+                <select id="appDDL" name="appCode" [(ngModel)]="model.appCode"
+                  (change)="loadRightGroups()" class="form-control" >
+                  <option value="">- নির্বাচন করুন -</option>
+                  <option *ngFor="let app of applications" [value]="app.code">
+                    {{app.appName}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6 form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">রাইট গ্রুপ</span>
+                </div>
+                <select id="groupId" name="rightGroupId" class="form-control"
+                [(ngModel)]="model.rightGroupId" (change)="loadRights()" >
+                <option value="">- নির্বাচন করুন -</option>
+                <option *ngFor="let group of rightGroups" [value]="group.id"
+                >{{group.groupName}}</option>
+              </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <table class="table">
+                <thead>
+                  <th>কোড</th>
+                  <th>রাইটের নাম</th>
+                  <th>যুক্ত করুন</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let right of rights" >
+                    <ng-container *ngIf="CheckNotExists(right.id)">
+                      <td>{{right.code}}</td>
+                      <td>{{right.name}}</td>
+                      <td>
+                        <i class="fa fa-plus" (click) ="saveRight(right.id)" alt='Assign It' style="cursor: pointer;" ></i>
+                        <!-- <button class="btn-small">Assign</button> -->
+                      </td>
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h4> অর্পিত অনুমোদন সমূহ </h4>
+          <table class="table">
+            <thead>
+              <th>মডিউলের নাম</th>
+              <th>রাইট গ্রুপ</th>
+              <th>রাইটের নাম</th>
+              <th>কার্যক্রম</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let right of assignedRights">
+                <td>{{right.appName}}</td>
+                <td>{{right.rightGroupName}}</td>
+                <td>{{right.rightName}}</td>
+                <td><span><i class="fa fa-trash"></i></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+
+<div class="row">
+  <div class="col-md-6 input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">জিও স্তর</span>
+    </div>
+      <select id="geoLevel" name="geoLevel" [(ngModel)]="geoLevel" (change)="onGeoLevelChange()"
+        class="form-control" required >
+        <option value="0">সর্বজনীন স্তর</option>
+        <option value="1">কেন্দ্রীয়</option>
+        <option value="2">বিভাগীয়</option>
+        <option value="3">জেলা ভিত্তিক</option>
+        <option value="4">উপজেলা ভিত্তিক</option>
+        <option value="5">ইউনিয়ন ভিত্তিক</option>
+      </select>
+  </div>
+  <div class="col-md-5" style="text-align: right;">
+    <button type="button" pButton label='নতুন পদ' icon="pi pi-plus" iconPos="right" class="p-button-sm" (click)="openNewRoleWindow()" ></button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10" offset="2">
+    <p-table [value]="viewRoles"  styleClass="p-datatable-sm p-datatable-striped">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>পদের নাম</th>
+              <th>ভৌগলিক স্তর</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-role>
+          <tr>
+              <td>{{role.roleName}}</td>
+              <td>{{elaborateGeoLevel(role.geoLevel)}}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+  </div>
+</div>

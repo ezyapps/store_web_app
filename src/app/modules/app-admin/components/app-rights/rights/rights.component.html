@@ -1,0 +1,101 @@
+
+<div class="animated fadeIn">
+  <div class="pagelabel">
+    <div class="row" style="margin-bottom: 2px;">
+      <div class="col-sm-6">
+        <ol class="pagetitle" style="margin-bottom: 0rem;">Application Rights</ol>
+      </div>
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-2">
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mx-auto">
+      <div class="shadow">
+        <form #rightForm="ngForm" (ngSubmit)="saveRight()">
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Application</th>
+                  <th>Right Group</th>
+                  <th>Code</th>
+                  <th>Name</th>
+                  <th>Url</th>
+                  <th>Icon</th>
+                  <td>Action</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <select id="appCode" name="appCode" class="form-control"
+                      [(ngModel)]="model.appCode" (change)="loadRightGroups()" >
+                      <option value="all">- All -</option>
+                      <option *ngFor="let app of applications" [value]="app.code"
+                      >{{app.appName}}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select id="parentGroupId" name="parentGroupId" class="form-control" [(ngModel)]="model.rightGroupId" (change)="loadRights()" >
+                      <option value="all">- Parent -</option>
+                      <option *ngFor="let group of rightGroups" [value]="group.id"
+                      >{{group.groupName}}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" id="code" name="code" [(ngModel)]="model.code"
+                    class="form-control" placeholder="" required />
+                  </td>
+                  <td>
+                    <input type="text" id="name" name="name" [(ngModel)]="model.name"
+                    class="form-control" placeholder="" required />
+                  </td>
+                  <td>
+                    <input type="text" id="url" name="url" [(ngModel)]="model.url"
+                    class="form-control" placeholder="" />
+                  </td>
+                  <td>
+                    <input type="text" id="icon" name="icon" [(ngModel)]="model.icon"
+                    class="form-control" placeholder="" />
+                  </td>
+                  <td>
+                    <button type="submit" [disabled]="!rightForm.valid" class="btn btn-primary" > সংরক্ষন </button>
+                    <button type="button" *ngIf="model.code" [disabled]="!rightForm.valid" class="btn btn-light" (click)="model = {}" > বাতিল </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+        </form>
+      </div>
+  </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" >
+    <p-table [value]="rights"  styleClass="p-datatable-sm p-datatable-striped">
+      <ng-template pTemplate="header">
+          <tr>
+            <th>Right Group</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Url</th>
+            <th>Icon</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-right>
+          <tr>
+            <td>{{right.rightGroupName}}</td>
+            <td>{{right.code}}</td>
+            <td>{{right.name}}</td>
+            <td>{{right.url}}</td>
+            <td> <i class="{{right.icon}}"></i> </td>
+          </tr>
+      </ng-template>
+  </p-table>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="col">
+    <div class="pagelabel">
+      <div class="row" style="margin-bottom: 2px;">
+        <div class="col-sm-6">
+          <ol class="pagetitle" style="margin-bottom: 0rem;">ইউনিয়ন সমূহ</ol>
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-2">
+
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="animated fadeIn">
+        <div class="row">
+          <div class="col-md-12 mx-auto">
+              <div class="shadow">
+                <form #mouzaForm="ngForm" (ngSubmit)="saveMouza()">
+
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>বিভাগ</th>
+                          <th>জেলা</th>
+                          <th>উপজেলা</th>
+                          <th>ইউনিয়ন</th>
+                          <!-- <th>কোড</th> -->
+                          <th>মৌজার নাম</th>
+                          <th>জে এল নং</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <select id="divCode" name="divCode" class="form-control" [(ngModel)]="selectedDivCode" (change)="loadDistricts()">
+                              <option value="all">- All -</option>
+                              <option *ngFor="let division of divisions" [value]="division.code"
+                              >{{division.name}}</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select id="distCode" name="distCode" class="form-control" [(ngModel)]="selectedDistCode" (change)="loadUpazilas()">
+                              <option value="all">- All -</option>
+                              <option *ngFor="let district of districts" [value]="district.code"
+                              >{{district.name}}</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select id="parentCode" name="parentCode" class="form-control" [(ngModel)]="selectedUpazilaCode" (change)="loadUnions()">
+                              <option value="all">- All -</option>
+                              <option *ngFor="let upazila of upazilas" [value]="upazila.parentCode+'-'+upazila.code"
+                              >{{upazila.name}}</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select id="parentCode" name="parentCode" class="form-control" [(ngModel)]="model.parentCode" (change)="loadMouzas()">
+                              <option value="all">- All -</option>
+                              <option *ngFor="let union of unions" [value]="union.id"
+                              >{{union.name}}</option>
+                            </select>
+                          </td>
+                          <!-- <td>
+                            <input type="text" id="code" name="code" [(ngModel)]="model.code"
+                            class="form-control" placeholder="" required />
+                          </td> -->
+                          <td>
+                            <input type="text" id="name" name="name" [(ngModel)]="model.name"
+                            class="form-control" placeholder="" required />
+                          </td>
+                          <td>
+                            <input type="text" id="jlNo" name="jlNo" [(ngModel)]="model.jlNo"
+                            class="form-control" placeholder="" required />
+                          </td>
+                          <td>
+                            <button type="submit" [disabled]="!mouzaForm.valid" class="btn btn-primary" > সংরক্ষন </button>
+                            <button type="button" *ngIf="model.id" [disabled]="!mouzaForm.valid" class="btn btn-light" (click)="model = {}" > বাতিল </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10" offset="2">
+    <p-table [value]="mouzas"  styleClass="p-datatable-sm p-datatable-striped">
+      <ng-template pTemplate="header">
+          <tr>
+            <th>ইউনিয়ন</th>
+            <!-- <th>কোড</th> -->
+            <th>মৌজার নাম</th>
+            <th>জে এল নং</th>
+            <th>সম্পাদনা</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-mouza>
+          <tr>
+            <td>{{mouza.parentName}}</td>
+            <!-- <td>{{mouza.code}}</td> -->
+            <td>{{mouza.name}}</td>
+            <td>{{mouza.jlNo}}</td>
+            <td>
+              <span (click)="model = mouza" > <i class="fa fa-edit"></i> </span>
+               <!-- |<span (click)="model = mouza" > <i class="fa fa-trash"></i> </span> -->
+            </td>
+          </tr>
+      </ng-template>
+  </p-table>
+  </div>
+</div>

@@ -1,0 +1,174 @@
+<div class="card p-1">
+  <h5>কর্মকর্তা অনুসন্ধান</h5>
+  <div class="card-body shadow">
+    <form action="" method="post" class="form-inline" (submit) = 'searchEmployee()' >
+      <div class="form-group m-1">
+        <label class="sr-only" for="email">ই-মেইল</label>
+        <input type="email" id="email" name="email" [(ngModel)]="sModel.email"
+          class="form-control" placeholder="ই-মেইল ঠিকানা লিখুন" autocomplete="email"
+          (keyup) = "sModel.userName = ''; sModel.nid = ''">
+      </div>
+      <div class="form-group m-1">
+        <label class="sr-only" for="username">ব্যবহারকারীর নাম</label>
+        <input type="text" id="username" name="username" [(ngModel)]="sModel.username"
+        (keyup) = "sModel.email = ''; sModel.nid = ''" class="form-control" placeholder="ব্যবহারকারীর নাম লিখুন" >
+      </div>
+      <div class="form-group m-1">
+        <label class="sr-only" for="nid">জাতীয় পরিচয়পত্র নং</label>
+        <input type="text" id="nid" name="nid" (keyup) = "sModel.userName = ''; sModel.email = ''"
+        class="form-control" [(ngModel)]="sModel.nid" placeholder="জাতীয় পরিচয়পত্র নং" >
+      </div>
+      <div class="form-group m-1">
+        <label class="sr-only" for="if-password">  </label>
+        <input type="submit" id="btn-submit" name="btn-submit" class="btn btn-block btn-primary active" value="কর্মকর্তা খুঁজুন" />
+      </div>
+    </form>
+  </div>
+  <!-- <h6>Employee Search Result</h6> -->
+  <div class="m-1">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="knownAs">নাম</label>
+          <label class="form-control" name="knownAs" id="knownAs" >{{empModel?.knownAs}}</label>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="email">ই-মেইল </label>
+          <label class="form-control" name="email" id="email">{{empModel?.email}}</label>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="phone">ফোন</label>
+          <label class="form-control" name="phone" id="phone">{{empModel?.phone}}</label>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="username">ইউজার নেম</label>
+          <label class="form-control" name="username" id="username">{{empModel?.username}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+
+      </div>
+    </div>
+  </div>
+  <div class="card-body1">
+    <p-table [value]="currentRoles"  styleClass="p-datatable-sm p-datatable-striped">
+      <ng-template pTemplate="header">
+          <tr>
+            <th>কার্যালয়</th>
+            <th>শাখা</th>
+            <th>পদবী</th>
+            <th>Actions</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-role>
+          <tr>
+            <td>{{role.officeName}}</td>
+            <td>{{role.branchName}}</td>
+            <td>{{role.roleName}}</td>
+            <td>
+              <!-- <span (click)="selectedDistrict = role" > <i class="fa fa-edit"></i> </span> |
+              <span (click)="selectedDistrict = role" > <i class="fa fa-trash"></i> </span> -->
+            </td>
+          </tr>
+      </ng-template>
+  </p-table>
+  </div>
+</div>
+<div class="card">
+  <h5>Role Assignment</h5>
+  <div class="card-body">
+    <h5>পেশাগত তথ্য</h5>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="ministryId">মন্ত্রনালয়</label>
+          <select id="ministryId" name="ministryId" [(ngModel)]="model.ministryId" (change)="loadOfficeLevels()"
+            class="form-control" required >
+            <option value="">- Please Select -</option>
+            <option *ngFor="let ministry of ministries" [value]="ministry.id">{{ministry.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="officeLevelId">বিভাগ</label>
+          <select id="officeLevelId" name="officeLevelId"
+            [(ngModel)]="model.officeLevelId" (change)="onOfficeLevelChange()"
+            class="form-control" required >
+            <option value="">- Please Select -</option>
+            <option *ngFor="let officeLevel of officeLevels" [value]="officeLevel.id">
+              {{officeLevel.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="officeId">কার্যালয়</label>
+          <select id="officeId" name="officeId" [(ngModel)]="model.officeId"
+            class="form-control"  (change)="loadOfficeBranches()">
+            <option value="">- Please Select -</option>
+            <option *ngFor="let office of offices" [value]="office.id">{{office.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="officeId">শাখা</label>
+          <select id="officeBranchId" name="officeBranchId" [(ngModel)]="model.branchId"
+            class="form-control"  (change)="loadOfficeStructures()">
+            <option value="">- Please Select -</option>
+            <option *ngFor="let officeBranch of officeBranches" [value]="officeBranch.id">{{officeBranch.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="officeStructureId">পদবী</label>
+          <select id="officeStructureId" name="officeStructureId" [(ngModel)]="model.officeStructureId"
+            class="form-control" > <!-- (change)="loadOfficeStructures()"-->
+            <option value="">- Please Select -</option>
+            <option *ngFor="let officeStructure of officeStructures" [value]="officeStructure.id">{{officeStructure.roleName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="officeStructureId">পদবীর ধরন</label>
+          <select id="roleType" name="roleType" [(ngModel)]="model.roleType"
+            class="form-control">
+            <option value="">- নির্বাচন করুন -</option>
+            <option value="ভারপ্রাপ্ত">ভারপ্রাপ্ত</option>
+            <option value="চলতি দায়িত্ব">চলতি দায়িত্ব</option>
+            <option value="অতিরিক্ত দায়িত্ব">অতিরিক্ত দায়িত্ব</option>
+            <option value="রুটিন দায়িত্ব">রুটিন দায়িত্ব</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="assignDate">যোগদানের তারিখ </label>
+          <input type="date" class="form-control" name="assignDate" id="assignDate" [(ngModel)] = "model.assignDate">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="btn-assignment"> </label>
+          <input type="button" class="btn btn-primary" (click) = "assignRoleToEmployee()"
+            name ="btn-assignment" id="btn-assignment" value="নতুন পদবী যুক্ত করুন" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col">
+    <div class="pagelabel">
+      <div class="row" style="margin-bottom: 2px;">
+        <div class="col-sm-6">
+          <ol class="pagetitle" style="margin-bottom: 0rem;">মন্ত্রণালয় সমূহ</ol>
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-2">
+
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="animated fadeIn">
+        <div class="row">
+          <div class="col-md-12 mx-auto">
+              <div class="shadow">
+                <form #ministryForm="ngForm" (ngSubmit)="saveMinistry()">
+
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>মন্ত্রণালয় কোড</th>
+                          <th>মন্ত্রণালয় নাম</th>
+                          <th>ঠিকানা</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+
+                          <td>
+                            <input type="text" id="code" name="code" [(ngModel)]="model.code"
+                            class="form-control" placeholder="" required />
+                          </td>
+                          <td>
+                            <input type="text" id="name" name="name" [(ngModel)]="model.name"
+                            class="form-control" placeholder="" required />
+                          </td>
+                          <td>
+                            <input type="text" id="address" name="address" [(ngModel)]="model.address"
+                            class="form-control" placeholder="" required />
+                          </td>
+                          <td>
+                            <button type="submit" [disabled]="!ministryForm.valid" class="btn btn-primary" > সংরক্ষন </button>
+                            <button type="button" *ngIf="model.code" [disabled]="!ministryForm.valid" class="btn btn-light" (click)="model = {}" > বাতিল </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10" offset="2">
+    <p-table [value]="ministries"  styleClass="p-datatable-sm p-datatable-striped">
+      <ng-template pTemplate="header">
+          <tr>
+            <th>মন্ত্রণালয় কোড</th>
+            <th>মন্ত্রণালয় নাম</th>
+            <th>ঠিকানা</th>
+            <th></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-ministry>
+          <tr>
+            <td>{{ministry.code}}</td>
+            <td>{{ministry.name}}</td>
+            <td>{{ministry.address}}</td>
+            <td>
+              <span (click)="model = ministry" > <i class="fa fa-edit"></i> </span>
+              <!-- |<span (click)="model = ministry" > <i class="fa fa-trash"></i> </span> -->
+            </td>
+          </tr>
+      </ng-template>
+  </p-table>
+  </div>
+</div>

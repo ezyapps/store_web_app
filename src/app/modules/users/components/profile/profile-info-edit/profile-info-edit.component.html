@@ -1,0 +1,122 @@
+<form #profileEditFrm="ngForm" (submit)="saveProfileData()">
+<table class="table table-bordered table-responsive">
+  <tbody>
+    <tr>
+      <th class="control-label text-right">নাম (বাংলা)</th>
+      <td class="control-label ">
+        <input type="text" class="form-control" name="knownAsBangla" id="knownAsBangla" [(ngModel)]="profileInfo.knownAsBangla">
+      </td>
+      <th class="control-label  text-right">নাম (ইংরেজি)</th>
+      <td class="control-label ">
+        <input type="text" class="form-control" name="knownAs" id="knownAs" [(ngModel)]="profileInfo.knownAs">
+      </td>
+  </tr>
+  <tr>
+      <th class="control-label text-right">পিতার নাম (বাংলা)</th>
+      <td class="control-label ">
+        <input type="text" class="form-control" name="fatherNameBangla" id="fatherNameBangla" [(ngModel)]="profileInfo.fatherNameBangla">
+      </td>
+      <th class="control-label  text-right">পিতার নাম (ইংরেজি)</th>
+      <td class="control-label ">
+        <input type="text" class="form-control" name="fatherName" id="fatherName" [(ngModel)]="profileInfo.fatherName">
+      </td>
+  </tr>
+  <tr>
+      <th class="control-label text-right">মাতার নাম (বাংলা)</th>
+      <td class="control-label ">
+        <input type="text" class="form-control" name="motherNameBangla" id="motherNameBangla" [(ngModel)]="profileInfo.motherNameBangla">
+      </td>
+      <th class="control-label  text-right">মাতার নাম (ইংরেজি)</th>
+      <td class="control-label ">
+        <input type="text" class="form-control" name="motherName" id="motherName" [(ngModel)]="profileInfo.motherName">
+      </td>
+  </tr>
+
+  <tr>
+      <th class="control-label text-right">জন্ম তারিখ</th>
+      <td class="control-label ">{{profileInfo.dateOfBirth|date}}</td>
+      <th class="control-label  text-right">পরিচয়পত্র নম্বর</th>
+      <td class="control-label ">{{profileInfo.nid}}</td>
+  </tr>
+  <tr>
+      <th class="control-label  text-right"> লিঙ্গ </th>
+      <td class="control-label ">
+
+        <select class="form-control" name="gender" id="gender"
+          [(ngModel)]="profileInfo.gender" >
+          <option value="পুরুষ">পুরুষ</option>
+          <option value="মহিলা">মহিলা</option>
+          <option value="অন্যান্য">অন্যান্য</option>
+        </select>
+      </td>
+      <th class="control-label  text-right"> ধর্ম </th>
+      <td class="control-label ">
+        <select class="form-control" name="religion" id="religion"
+          [(ngModel)]="profileInfo.religion" >
+          <option value="ইসলাম">ইসলাম</option>
+          <option value="হিন্দু">হিন্দু</option>
+          <option value="খৃষ্টান">খৃষ্টান</option>
+          <option value="বৌদ্ধ">বৌদ্ধ</option>
+          <option value="অন্যান্য">অন্যান্য</option>
+        </select>
+      </td>
+  </tr>
+  <tr>
+      <th class="control-label  text-right">রক্তের গ্রুপ</th>
+      <td class="control-label ">
+        <select class="form-control" name="bloodGroup" id="bloodGroup"
+          [(ngModel)]="profileInfo.bloodGroup" >
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+        </select>
+      </td>
+      <th class="control-label  text-right">বৈবাহিক অবস্থা</th>
+      <td class="control-label ">
+        <select class="form-control" name="maritalStatus" id="maritalStatus"
+          [(ngModel)]="profileInfo.maritalStatus" >
+          <option value="অবিবাহিত">অবিবাহিত</option>
+          <option value="বিবাহিত">বিবাহিত</option>
+          <option value="বিধবা">বিধবা</option>
+          <option value="তালাকপ্রাপ্ত">তালাকপ্রাপ্ত</option>
+        </select>
+      </td>
+  </tr>
+  <tr>
+      <th class="control-label  text-right">ব্যক্তিগত ই-মেইল</th>
+      <td class="control-label ">
+        <input type="text" class="form-control" name="email" id="email" [(ngModel)]="profileInfo.email">
+      </td>
+      <th class="control-label  text-right">ব্যক্তিগত মোবাইল নম্বর</th>
+      <td class="control-label ">
+        <input type="text" class="form-control" name="phone" id="phone" [(ngModel)]="profileInfo.phone">
+      </td>
+  </tr>
+  <tr>
+    <th class="control-label text-right">জন্ম সনদ নম্বর</th>
+    <td class="control-label ">
+      <input type="text" class="form-control" name="birthRegNo" [(ngModel)]="profileInfo.birthRegNo">
+    </td>
+    <th class="control-label  text-right">পাসপোর্ট নম্বর</th>
+    <td class="control-label ">
+      <input type="text" class="form-control" name="passportNo" [(ngModel)]="profileInfo.passportNo">
+    </td>
+  </tr>
+  <tr>
+    <th class="control-label text-right">পদবী</th>
+    <td class="control-label ">
+      <input type="text" class="form-control" name="designation" [(ngModel)]="profileInfo.designation">
+    </td>
+    <th class="control-label  text-right"></th>
+    <td class="control-label ">
+      <button type="submit" class="btn btn-primary" >সংরক্ষন</button>
+    </td>
+  </tr>
+</tbody>
+</table>
+</form>

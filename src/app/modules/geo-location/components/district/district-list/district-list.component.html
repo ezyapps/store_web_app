@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col">
+    <div class="pagelabel">
+      <div class="row" style="margin-bottom: 2px;">
+        <div class="col-sm-6">
+          <ol class="pagetitle" style="margin-bottom: 0rem;">জেলা সমূহ</ol>
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-2" style="text-align: right; display: none;">
+          <button type="button" class="btn btn-link" style="text-decoration: none;" (click)="openNewWindow()" >
+            <span *ngIf="showNewWindow === false"> <i class="fa fa-plus"></i> New </span>
+            <span *ngIf="showNewWindow === true"> <b>X</b> Cancel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <app-district-new *ngIf="showNewWindow === true"
+      (districtCreated) = "onDistCreated($event)"
+      (divisionChanged) = "onDivisionChanged($event)"
+      [inpModel] = "selectedDistrict"
+      ></app-district-new>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10" offset="2">
+    <p-table [value]="districts"  styleClass="p-datatable-sm p-datatable-striped">
+      <ng-template pTemplate="header">
+          <tr>
+            <th>বিভাগ</th>
+            <th>কোড</th>
+            <th>জেলার নাম</th>
+            <th>সম্পাদনা</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-district>
+          <tr>
+            <td>{{district.parentName}}</td>
+            <td>{{district.code}}</td>
+            <td>{{district.name}}</td>
+            <td>
+              <span (click)="selectedDistrict = district" > <i class="fa fa-edit"></i> </span>
+              <!-- | <span (click)="selectedDistrict = district" > <i class="fa fa-trash"></i> </span> -->
+            </td>
+          </tr>
+      </ng-template>
+  </p-table>
+  </div>
+</div>
