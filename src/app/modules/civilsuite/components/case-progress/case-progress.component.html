@@ -1,0 +1,171 @@
+<div class="wrapper"  *ngIf="caseProgressModel?.caseId != null">
+  <ul class="StepProgress">
+    <li class="StepProgress-item is-done" ><span>মামলা দায়ের</span>
+      <!-- <div> মামলার তারিখঃ {{caseDetails.CaseDate}}</div> -->
+    </li>
+    <li class="StepProgress-item {{currentStage >= 1? 'is-done':''}} {{currentStage < 1? 'current':''}}" >
+      <span>{{currentStage >= 1? 'এস এফ প্রাপ্ত':'এস এফ অপেক্ষমান'}}</span>
+      <div *ngIf="currentStage >= 1"> প্রাপ্তির তারিখঃ {{caseProgressModel?.sfReceiveDate | date}}</div>
+      <div *ngIf="currentStage < 1">
+        <form #sfForm="ngForm" (submit)="UpdateSFReceive()" >
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <label for="ActionDate">প্রাপ্তির তারিখঃ </label>
+                  <input type="date" id="ActionDate" name="ActionDate" class="form-control1" [(ngModel)]="caseSFModel.ActionDate">
+                  <input type="submit" value="সংরক্ষন">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </li>
+    <li class="StepProgress-item  {{currentStage>=2? 'is-done': currentStage==1?'current':''}}">
+      <div  *ngIf="currentStage == 1" >
+        <span>সরকারী স্বত্ব </span>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">আছে? </span>
+            </div>
+            <label class="switch-lg switch-label switch-pill switch-success m-1">
+              <input type="checkbox" class="switch-input" [(ngModel)] = "hasGovtInterest">
+              <span class="switch-slider" data-checked="হ্যাঁ" data-unchecked="না"></span>
+            </label>
+            <input type="button" value="সংরক্ষন" (click)="updateGovtInterest()" >
+          </div>
+        </div>
+      </div>
+      <span *ngIf="caseProgressModel.hasGovtInterest != null">{{caseProgressModel.hasGovtInterest == true? 'সরকারী স্বত্ব আছে':'সরকারী স্বত্ব নাই'}}</span> <br/>
+    <li *ngIf="caseProgressModel.hasGovtInterest == true"
+        class="StepProgress-item {{currentStage >= 3? 'is-done':''}} {{currentStage == 2? 'current':''}}">
+      <span> {{currentStage <= 2? 'এস এফ জিপি অফিসে প্রেরণ হয়নি':'এস এফ জিপি অফিসে প্রেরিত'}}</span> <br/>
+      <div *ngIf="currentStage > 2"> প্রেরণের তারিখঃ {{caseProgressModel.dateSFSentToGPOffice | date}}</div>
+      <div *ngIf="currentStage == 2">
+        <form #sf2GpoForm="ngForm" (submit)="UpdateSendSFToGpO()" >
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <label for="ActionDate">প্রেরণের তারিখঃ </label>
+                  <input type="date" id="ActionDate" name="ActionDate" class="form-control1" [(ngModel)]="caseSF2GpOModel.ActionDate">
+                  <input type="submit" value="সংরক্ষন">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </li>
+    <li *ngIf="caseProgressModel.hasGovtInterest == true"
+      class="StepProgress-item {{currentStage >= 4? 'is-done':''}} {{currentStage == 3? 'current':''}}">
+      <span> {{currentStage <= 3? 'জিপি অফিস থেকে জবাব পাওয়া যায়নি':'জিপি অফিস থেকে জবাব পাওয়া গিয়েছে'}}</span> <br/>
+      <div *ngIf="currentStage > 3"> প্রাপ্তির তারিখঃ {{caseProgressModel.dateReplyReceivedFromGPOffice | date}}</div>
+      <div *ngIf="currentStage == 3">
+        <form #replyFromGpoForm="ngForm" (submit)="UpdateReplyReceivedFromGpO()" >
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <label for="ActionDate">প্রাপ্তির তারিখঃ </label>
+                  <input type="date" id="ActionDate" name="ActionDate" class="form-control1" [(ngModel)]="caseSF2GpOModel.ActionDate">
+                  <input type="submit" value="সংরক্ষন">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </li>
+    <li *ngIf="caseProgressModel.hasGovtInterest == true"
+      class="StepProgress-item {{currentStage >= 5? 'is-done':''}} {{currentStage == 4? 'current':''}}">
+        <span> {{currentStage <= 4? 'স্বাক্ষরিত জবাব জিপি অফিসে প্রেরণ অপেক্ষমান':'স্বাক্ষরিত জবাব জিপি অফিসে প্রেরিত হয়েছে'}}</span> <br/>
+        <div *ngIf="currentStage > 4"> প্রেরণের তারিখঃ {{caseProgressModel.dateSignedReplySentToGPOffice | date}}</div>
+        <div *ngIf="currentStage == 4">
+          <form #signedReplyToGpOForm="ngForm" (submit)="UpdateSignedReplySendToGpO()" >
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <label for="ActionDate">প্রেরণের তারিখঃ </label>
+                    <input type="date" id="ActionDate" name="ActionDate" class="form-control1" [(ngModel)]="caseSF2GpOModel.ActionDate">
+                    <input type="submit" value="সংরক্ষন">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+    </li>
+    <li *ngIf="caseProgressModel.hasGovtInterest == true"
+    class="StepProgress-item {{currentStage >= 6? 'is-done':''}} {{currentStage == 5? 'current':''}}">
+        <span> শুনানী </span>
+        <div *ngIf="currentStage >= 5"> শুনানীর তারিখঃ {{caseProgressModel.hearingDate | date}}</div>
+        <div *ngIf="currentStage == 5">
+          <form #signedReplyToGpOForm="ngForm" (submit)="UpdateHearingDate()" >
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <label for="ActionDate">পরবর্তী তারিখঃ </label>
+                    <input type="date" id="ActionDate" name="ActionDate" class="form-control1" [(ngModel)]="caseSF2GpOModel.ActionDate">
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <label for="ActionDate">কোর্ট তথ্য </label>
+                    <input type="text" id="courtInfo" name="courtInfo" class="form-control1" [(ngModel)]="caseSF2GpOModel.CourtInfo">
+                    <input type="submit" value="সংরক্ষন">
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">ফলাফল পক্ষে?</span>
+                    </div>
+                    <label class="switch-lg switch-label switch-pill switch-success m-1">
+                      <input type="checkbox" class="switch-input" [(ngModel)] = "caseResult">
+                      <span class="switch-slider" data-checked="হ্যাঁ" data-unchecked="না"></span>
+                    </label>
+                    <input type="button"class="btn btn-sm-primary" value="সংরক্ষন" (click)="updateResult()" >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+    </li>
+    <li *ngIf="caseProgressModel.hasGovtInterest == true"
+      class="StepProgress-item {{currentStage >= 7? 'is-done':''}} {{currentStage == 6? 'current':''}}">
+        <span> ফলাফল </span>
+        <div *ngIf="currentStage >= 7">
+          <div class="row">
+            <div class="col-md-5">{{caseProgressModel.result == 1? 'জয়ী': 'পরাজিত'}}</div>
+            <div class="col-md-7">
+              <table>
+                <tr>
+                  <th>আপিল?</th>
+                  <td>
+                    <span *ngIf="caseDetails.caseRefNo != null">
+                      হ্যাঁ ({{caseDetails.caseRefNo}})
+                    </span>
+                    <span *ngIf="caseDetails.caseRefNo == null">
+                      না <button type="button" (click)="moveToAppeal()" >আপিল করুন</button>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+
+            </div>
+          </div>
+        </div>
+    </li>
+  </ul>
+</div>

@@ -12,9 +12,38 @@
 
   <main class="main d-flex ">
     <div class="container"  style="background-color: snow;">
+      <div class="navbar">
+        <div class="navbar-inner">
+            <div class="navbar-container">
+                <!-- Navbar Barnd -->
+                <div class="navbar-header pull-left">
+                    <a href="#" class="navbar-brand" style="font-family:Colonna MT; margin-top:6px;text-effect:emboss;">
+                        EzyApps
+                    </a>
+                </div>
+                <!-- Account Area and Settings -->
+                <div class="navbar-header pull-right">
+                    <a href="#" class="navbar-brand" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; margin-top:6px">
+                        <small>
+                        Business Solution
+                        </small>
+                    </a>
+                </div>
+                <!-- /Account Area and Settings -->
+                <!-- /Navbar Barnd -->
+                <!-- Sidebar Collapse -->
+                <div class="sidebar-collapse" id="sidebar-collapse" style="display:none">
+                    <i class="collapse-icon fa fa-bars"></i>
+                </div>
+                <!-- /Sidebar Collapse -->
+
+            </div>
+        </div>
+    </div>
       <div class="row">
-        <div class="col-md-12 text-center p-2 box-shadow" style="background-color:rgba(99, 142, 2, 0.3); border-bottom: 1px solid #CCC;"> <!--rgba(243, 241, 223, 0.8)-->
-          <h1>My Store Apps</h1> [<strong style="color: red;">Training Mode</strong>]
+        <div class="col-md-12 text-center p-2 box-shadow" style="background-color:rgba(107, 50, 107, 0.90); border-bottom: 1px solid #CCC;"> <!--rgba(243, 241, 223, 0.8)-->
+          <!-- <h1>My Store Apps</h1> -->
+          [<strong style="color: red;">Training Mode</strong>]
         </div>
       </div>
       <div class="row">
@@ -23,9 +52,9 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6 mx-auto p-2 rounded" style="background-color: rgba(99, 142, 2, 0.4);">
+        <div class="col-md-4 mx-auto p-2 rounded" style="background-color: rgba(107, 50, 107, 0.3);">
           <tabset>
-            <tab heading="ইউজার আইডি">
+            <tab heading="User Login">
               <form #loginForm="ngForm" (ngSubmit)="login()" >
                 <!-- <h1>ইউজার আইডি</h1>
                 <p class="text-muted">Sign In to your account</p> -->
@@ -33,18 +62,18 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-user"></i></span>
                   </div>
-                  <input type="text" class="form-control" name="Username" placeholder="ইউজার আইডি" [(ngModel)]="model.Username" required>
+                  <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="model.email" required>
                 </div>
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-lock"></i></span>
                   </div>
-                  <input type="password" class="form-control" name="Password" placeholder="পাসওয়ার্ড" [(ngModel)]="model.Password" required>
+                  <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="model.password" required>
                 </div>
                 <div class="row">
                   <div class="col-6">
                     <button type="submit" [disabled]="!loginForm.valid || isLoginProgress" class="btn btn-primary px-4">
-                      {{(isLoginProgress==true)? "অনুগ্রহ করে অপেক্ষা করুণ ...":"প্রবেশ"}}
+                      {{(isLoginProgress==true)? "Please Wait ...":"Login"}}
                     </button>
                   </div>
                   <!-- <div class="col-6 text-right">
@@ -53,7 +82,7 @@
                 </div>
               </form>
             </tab>
-            <tab heading="পাসওয়ার্ড রিসেট">
+            <tab heading="Forgot Password">
 
             </tab>
           </tabset>
@@ -93,16 +122,16 @@
     </div> -->
   </main>
   <footer class="fixed-bottom">
-    <div class="row" style="background-color:rgba(99, 142, 2, 0.1);
+    <div class="row" style="background-color:rgba(107, 50, 107, 0.3);
         border-top: 1px solid #999; padding:5px;">
-      <div class="col col-md-6" style="text-align: left; font-size:18px;">
+      <!-- <div class="col col-md-6" style="text-align: left; font-size:18px;">
         <img src="./assets/img/jashore-logo.jpg" width="30" height="30" class="d-inline-block align-top rounded" alt="">
         <span style="padding-left:5px">জেলা প্রশাসন, যশোর</span>
-      </div>
-      <div class="col col-md-6 align-text-bottom" style="text-align:right; font-size:18px;">
-        কারিগরি সহযোগিতায়ঃ
-        <img src="./assets/img/doict-logo.png" height="30" class="d-inline-block align-top rounded" alt="">
-        যশোর
+      </div> -->
+      <div class="col col-md-6 align-text-bottom" style="text-align:right; font-size:13px;">
+        Powered By
+        <img src="./assets/img/logo-only.png" height="25" class="d-inline-block align-top" alt="">
+
       </div>
     </div>
   </footer>

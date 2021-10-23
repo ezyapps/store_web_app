@@ -5,8 +5,7 @@
 /dist-server
 /tmp
 /out-tsc
-/src/app/modules/civilsuite
-/src/app/modules/quarantine
+
 # dependencies
 /node_modules
 package-lock.json

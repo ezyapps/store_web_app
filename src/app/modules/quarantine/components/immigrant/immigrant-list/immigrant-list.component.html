@@ -1,0 +1,147 @@
+<div class="animated fadeIn" style="font-family: 'Times New Roman', Times, serif;">
+
+  <div class="row">
+    <div class="col-md-2 input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Div</span>
+      </div>
+      <select id="divCode" name="divCode" [(ngModel)]="selectedDivCode" (change)="loadDistricts()">
+        <option value="all">- All -</option>
+        <option *ngFor="let division of divisions" [value]="division.code"
+        [selected]="division.code == model.parentCode"
+        >{{division.name}}</option>
+      </select>
+    </div>
+    <div class="col-md-3 input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">District</span>
+      </div>
+      <select id="parentCode" name="parentCode" class="form-control" [(ngModel)]="model.District" (change)="loadQuarantinCenters()">
+        <option value="">- All -</option>
+        <option *ngFor="let district of districts" [value]="district.code"
+        >{{district.name}}</option>
+      </select>
+    </div>
+    <div class="col-md-2 input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Center Type</span>
+      </div>
+      <select id="centerType" name="centerType" class="form-control" [(ngModel)]="model.Type" (change)="loadQuarantinCenters()">
+        <option value="">- All -</option>
+        <option value="Hospital" >Hospital</option>
+        <option value="Hotel" >Hotel</option>
+        <option value="Other" >Other</option>
+      </select>
+    </div>
+    <div class="col-md-5 input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Center</span>
+      </div>
+      <select id="location" name="LastLocation" class="form-control" [(ngModel)]="model.LastLocation" (change)="loadImmigrants()">
+        <option value="">- All -</option>
+        <option *ngFor="let center of centers" [value]="center.Name"
+        >{{center.Name}}</option>
+      </select>
+    </div>
+
+</div>
+<div class="row">
+  <div class="col-md-3 input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Action on Port</span>
+    </div>
+    <select id="portAction" name="portAction" class="form-control" [(ngModel)]="model.PortAction" (change)="loadImmigrants()">
+      <option value="">- All -</option>
+      <option value="Quarantine" >Quarantine</option>
+      <option value="Refer" >Refer</option>
+      <option value="None">None</option>
+    </select>
+  </div>
+  <div class="col-md-5 input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Entry Date</span>
+    </div>
+    <input type="date" id="entryDateFrom" class="form-control" name="entryDateFrom" [(ngModel)]="model.DateFrom" >
+    To
+    <input type="date" id="entryDateTo" class="form-control" name="entryDateTo" [(ngModel)]="model.DateTo" >
+  </div>
+  <div class="col-md-2 input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Ignore Date</span>
+    </div>
+    <input type="checkbox" class="form-control" id="ignoreDate" name="ignoreDate" [(ngModel)]="model.IgnoreDate" >
+  </div>
+  <div class="col-md-2 input-group form-group">
+    <!-- <div class="input-group-prepend">
+      <span class="input-group-text">Entry Date</span>
+    </div> -->
+    <input type="submit" class="btn btn-success form-control" value="Load" (click)="loadImmigrants()">
+    <!-- <button type="submit" pButton label='Load'
+        icon="pi pi-check" iconPos="right" class="p-button-sm"
+        (click)="loadImmigrants()" ></button> -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12" style="background-color: white;">
+    <button mat-button (click)="exporter.exportTable('csv')"></button>
+    <mat-form-field>
+      <mat-label>খুঁজুন</mat-label>
+      <input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
+    <table mat-table matTableExporter [dataSource]="dataSource" class="mat-elevation-z8" matSort #exporter="matTableExporter">
+      <ng-container matColumnDef="DateCreated">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Entry Date </th>
+        <td mat-cell *matCellDef="let center" > {{center.DateCreated|date}}</td>
+      </ng-container>
+      <ng-container matColumnDef="TokenNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Token No </th>
+        <td mat-cell *matCellDef="let center" > {{center.TokenNo}}</td>
+      </ng-container>
+      <ng-container matColumnDef="PassportNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Passport No </th>
+        <td mat-cell *matCellDef="let center" > {{center.PassportNo}}</td>
+      </ng-container>
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let case"> {{case.Name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Gender">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+        <td mat-cell *matCellDef="let case"> {{case.Gender}} </td>
+      </ng-container>
+      <ng-container matColumnDef="PhoneNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+        <td mat-cell *matCellDef="let case"> {{case.PhoneNo}} </td>
+      </ng-container>
+      <ng-container matColumnDef="DistrictName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> District </th>
+        <td mat-cell *matCellDef="let case"> {{case.DistrictName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="LastLocation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Location </th>
+        <td mat-cell *matCellDef="let case"> {{case.LastLocation}} </td>
+      </ng-container>
+      <ng-container matColumnDef="PortAction" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action on Port </th>
+        <td mat-cell *matCellDef="let case"> {{case.PortAction}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let case">
+          <!-- <span (click) = 'caseDetails(case.CaseNo)' style="cursor: pointer;" alt='মামলা বিস্তারিত' > <i class="fa fa-edit"></i> </span> |
+          <span (click) = 'loadProgressWindow(case.Id)' style="cursor: pointer;"> <i class="fa fa-edit"></i> </span> -->
+          <span *ngIf='case.PortAction === null' (click) = 'loadProgressWindow(case)' style="cursor: pointer;" tooltip="Assign Hotel/Refer"> <i class="fa fa-hospital-o"></i> </span>
+          <span *ngIf='case.PortAction !== null' (click) = 'loadMovementWindow(case)' style="cursor: pointer;" tooltip="Movement"> <i class="fa fa-suitcase"></i> </span>
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+      <tr mat-row *matRowDef="let case; columns: displayColumns"></tr>
+    </table>
+    <mat-paginator [length]="centers?.length" [pageSize]="3" [pageSizeOptions]="[3, 5, 10, 25, 100]"></mat-paginator>
+
+  </div>
+</div>
+</div>

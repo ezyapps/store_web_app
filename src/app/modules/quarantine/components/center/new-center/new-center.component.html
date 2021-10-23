@@ -1,0 +1,78 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12 mx-auto">
+        <div class="shadow">
+          <form #centerForm="ngForm" (ngSubmit)="saveCenter()">
+            <div class="row">
+              <div class="col-md-3 input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Div</span>
+                </div>
+                <select id="divCode" name="divCode" [(ngModel)]="selectedDivCode" (change)="loadDistricts()">
+                  <option value="all">- All -</option>
+                  <option *ngFor="let division of divisions" [value]="division.code"
+                  [selected]="division.code == model.parentCode"
+                  >{{division.name}}</option>
+                </select>
+              </div>
+              <div class="col-md-3 input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">District</span>
+                </div>
+                <select id="parentCode" name="parentCode" class="form-control" [(ngModel)]="model.District">
+                  <option value="all">- All -</option>
+                  <option *ngFor="let district of districts" [value]="district.name"
+                  >{{district.name}}</option>
+                </select>
+              </div>
+              <div class="col-md-3 input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Type</span>
+                </div>
+                <select id="centerType" name="centerType" class="form-control" [(ngModel)]="model.Type">
+                  <option value="">- Select -</option>
+                  <option value="Hospital" >Hospital</option>
+                  <option value="Hotel" >Hotel</option>
+                  <option value="Other" >Other</option>
+                </select>
+              </div>
+              <div class="col-md-4 input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">নাম</span>
+                </div>
+                <input type="text" id="name" name="name" [(ngModel)]="model.Name"
+                  class="form-control" placeholder="" required />
+              </div>
+              <div class="col-md-4 input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Address</span>
+                </div>
+                <input type="text" id="location" name="location" [(ngModel)]="model.Location"
+                  class="form-control" placeholder="" required />
+              </div>
+              <div class="col-md-4 input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Contact Person</span>
+                </div>
+                <input type="text" id="name" name="name" [(ngModel)]="model.ContactPerson"
+                  class="form-control" placeholder="" required />
+              </div>
+              <div class="col-md-4 input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Contact Number</span>
+                </div>
+                <input type="text" id="contactNo" name="contactNo" [(ngModel)]="model.ContactNo"
+                  class="form-control" placeholder="" required />
+              </div>
+              <div class="col-md-2 input-group form-group">
+                <div class="input-group-prepend">
+                  <button type="submit" pButton [disabled]="!centerForm.valid" label='সংরক্ষন' icon="pi pi-check" iconPos="right" class="p-button-sm" ></button>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+    </div>
+  </div>
+</div>

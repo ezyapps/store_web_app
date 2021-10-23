@@ -5,4 +5,5 @@ export class GeoMouza {
   parentCode: string;
   parentName: string;
   jlNo: string;
+  unionLandOfficeId: string;
 }

@@ -1,0 +1,181 @@
+<div class="row">
+  <div class="col-md-8 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        চলমান মামলার তথ্য
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <!-- <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">মামলা নং</span>
+                </div>
+              </div> -->
+              <label for="rCaseNo">মামলা নং</label>
+              <label class="form-control" name="rCaseNo" id="rCaseNo">{{caseDetails?.CaseNo}}</label>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <!-- <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">শ্রেণী</span>
+                </div>
+              </div> -->
+              <label for="CaseCategory">শ্রেণী</label>
+              <label class="form-control" name="CaseCategory" id="CaseCategory">{{caseDetails?.CaseCategory}}</label>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <!-- <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">ধরন</span>
+                </div>
+              </div> -->
+              <label for="CaseType">ধরন</label>
+              <label class="form-control" name="CaseType" id="CaseType">{{caseDetails?.CaseType}}</label>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <!-- <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">বাদী</span>
+                </div>
+              </div> -->
+              <label for="Complaintant">বাদী</label>
+              <label class="form-control" name="Complaintant" id="Complaintant" >{{caseDetails?.Complaintant}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <!-- <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">মামলার বিস্তারিত</span>
+                </div>
+              </div> -->
+              <label for="description">মামলার বিস্তারিত</label>
+              <textarea class="form-control" name="description" readonly id="description" cols="3" >{{caseDetails?.CaseDescription}}</textarea>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <!-- <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">বিবাদী</span>
+                </div>
+              </div>-->
+              <label for="Defendant">বিবাদী</label>
+              <label class="form-control" id="Defendant" >{{caseDetails?.Defendant}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="district">জেলা</label>
+              <label class="form-control" name="district" id="district" >{{caseDetails?.DistName}}</label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="email">উপজেলা</label>
+              <label class="form-control" >{{caseDetails?.UpzName}}</label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="email">ইউনিয়ন </label>
+              <label class="form-control" >{{caseDetails?.UnionName}}</label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="email">ভূমি অফিস</label>
+              <label class="form-control" >{{caseDetails?.LandOfficeName}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="district">মৌজা</label>
+              <label class="form-control" name="knownAs" id="knownAs" >{{caseDetails?.MouzaNo}}</label>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="district">এস,এ,খং</label>
+              <label class="form-control" name="knownAs" id="knownAs" >{{caseDetails?.SAKhatianNo}}</label>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="district">আর,এস,খং</label>
+              <label class="form-control" name="knownAs" id="knownAs" >{{caseDetails?.RSKhatianNo}}</label>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="district">এস,এ দাগ</label>
+              <label class="form-control" name="knownAs" id="knownAs" >{{caseDetails?.SADagNo}}</label>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="district">আর,এস দাগ</label>
+              <label class="form-control" name="knownAs" id="knownAs" >{{caseDetails?.RSDagNo}}</label>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="district">জমি (শতাংশ)</label>
+              <label class="form-control" name="knownAs" id="knownAs" >{{caseDetails?.LandPercent}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mx-auto animated fadeIn">
+    <div class="card">
+      <div class="card-header">
+        আপিল মামলার তথ্য
+      </div>
+      <div class="card-body">
+        <form #aplFrm = "ngForm" (submit)="createAppealCase()">
+        <div class="row">
+          <div class="col-sm-10">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">আপিল মামলা নং</span>
+                </div>
+                <input type="text" class="form-control" name="CaseNo" id="CaseNo" [(ngModel)]="appealCaseModel.CaseNo" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">আপিলের তারিখ</span>
+                </div>
+                <input type="date" class="form-control" name="rCaseNo" id="rCaseNo" [(ngModel)]="appealCaseModel.CaseDate"/>
+                <!-- <input type="button" class="btn" pButton value="সংরক্ষন"> -->
+                <button pButton type="submit" label="সংরক্ষন" class="p-button-raised"></button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

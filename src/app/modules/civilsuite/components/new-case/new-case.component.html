@@ -1,0 +1,234 @@
+<!-- <div class="app-body1">
+  <main class="main d-flex align-items-center"> -->
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-md-12 mx-auto">
+          <form #newCaseForm="ngForm" (ngSubmit)="saveNewCase()" >
+          <div class="card shadow mx-1">
+            <div class="card-header">
+              নতুন মামলা
+            </div>
+            <div class="card-body">
+                <div class="row">
+                <div class="form-group col-md-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="bfnt-s18 input-group-text">মামলা নং</span>
+                    </div>
+                    <input type="text" id="caseNo" name="caseNo"
+                    [(ngModel)]="model.caseNo" class="form-control" placeholder="মামলা নং" required>
+                  </div>
+                </div>
+                <div class="form-group col-md-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">মামলার তারিখ</span>
+                    </div>
+                    <input type="date" id="caseDate" name="caseDate"
+                    [(ngModel)]="model.caseDate" class="form-control" placeholder="তারিখ" required>
+                  </div>
+                </div>
+                <div class="form-group col-md-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">শ্রেণী/ধরন</span>
+                    </div>
+                    <!-- <label class="form-control form-group">দেওয়ানি মামলা</label> -->
+                    <select class="form-control form-group"
+                      id="caseCategory" name="caseCategory" [(ngModel)]="model.caseCategory" required>
+                      <option value="এলএসটি">এলএসটি</option>
+                      <option value="নতুন">দেওয়ানি</option>
+                      <option value="আপিল">হাইকোর্ট</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group col-md-3">
+                  <!-- <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">ধরন</span>
+                    </div>
+                    <select class="form-control form-group" #caseType
+                      id="caseType" name="caseType" [(ngModel)]="model.caseType" required>
+                      <option value="নতুন">নতুন</option>
+                      <option value="আপিল">আপিল</option>
+                    </select>
+                  </div>-->
+                </div>
+              </div> <!--end of first row-->
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"> মামলার বিস্তারিত </span>
+                      </div>
+                    <textarea type="text" id="caseDescription" name="caseDescription" rows="2"
+                      [(ngModel)]="model.caseDescription" class="form-control" required>{{v2textService.text}}</textarea>
+                      <button id="voice2text" type="button" role="button" class="fr-command fr-btn speaking"
+                        data-cmd="voice2text" data-title="Voice Text" (click)="convertVoice()">
+
+                        <i class="fa startListening fa-microphone-slash" aria-hidden="true" *ngIf="!voiceListening"
+                          style="color: rgb(104, 65, 65); background: white; padding: 1px 3px;"> </i>
+                        <i class="fa startListening fa-microphone" aria-hidden="true" *ngIf="voiceListening"
+                          style="color: rgb(255, 38, 0); background: white; padding: 1px 3px;"> </i>
+                        </button>
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text"> <input type="checkbox" #govtCompaintent checked (click)="alterComplaintant(govtCompaintent.checked)" > &nbsp; সরকার বাদী</span>
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"> {{govtCompaintent.checked? 'বিবাদী' : 'বাদী'}} </span>
+                    </div>
+                    <input type="text" class="form-control form-group" *ngIf="!govtCompaintent.checked" name="complaintant" id="complaintant" [(ngModel)]="model.complaintant" required />
+                    <input type="text" class="form-control" placeholder="" *ngIf="govtCompaintent.checked" name="defendant" id="defendant" [(ngModel)]="model.defendant" required>
+                  </div>
+                </div>
+                <!-- <div class="form-group col-md-3" *ngIf="caseType.value == 'আপিল'">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">রেফারেন্স নং</span>
+                    </div>
+                    <input type="text" id="caseRefNo" name="caseRefNo"
+                      [(ngModel)]="model.caseRefNo" class="form-control" placeholder="রেফারেন্স নং" />
+                  </div>
+                </div>
+                <div class="form-group col-md-3" *ngIf="caseType.value == 'নতুন'">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">এসএফ দাখিলের তারিখ </span>
+                    </div>
+                    <input type="date" id="nextDate" name="nextDate"
+                      [(ngModel)]="model.nextDate" class="form-control" />
+                  </div>
+                </div> -->
+              </div><!--end of 2nd row-->
+              <div class="row">
+                <!-- <div class="form-group col-md-1">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+
+                    </div>
+                  </div>
+                </div> -->
+
+              </div>
+              <div class="row">
+
+                <div class="col-md-12">
+
+                      <strong>তফসিল</strong>
+                      <div class="row">
+                        <div class="col-md-3 form-group">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">জেলা</span>
+                            </div>
+                            <select class="form-control" id="distCode" name="distCode" [(ngModel)]="modelTopshil.distCode"
+                               id="distCode" name="distCode" (change)="loadUpazilas()" required>
+                              <!-- <option value="all">- All -</option> -->
+                              <option *ngFor="let district of districts" [value]="district.code">{{district.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">উপজেলা</span>
+                            </div>
+                            <select class="form-control" name="upazilaCode" id="upazilaCode"
+                              [(ngModel)]="modelTopshil.upazilaCode" (change)="loadMouzas()" required > <!--loadUnions()-->
+                              <option *ngFor="let upazila of upazilas" [value]="upazila.code">{{upazila.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-3 form-group d-none">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">ইউনিয়ন</span>
+                            </div>
+                            <select class="form-control" id="unionId" name="unionId"
+                              [(ngModel)]="modelTopshil.unionId" (change)="loadMouzas()" required>
+                              <option *ngFor="let union of unions" [value]="union.id">{{union.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">মৌজা</span>
+                            </div>
+                            <select class="form-control" id="mouzaNo" name="mouzaNo" [(ngModel)]="modelTopshil.mouzaNo"
+                              (change)="loadUnionLandOfficeInfo()" required>
+                              <option *ngFor="let mouza of mouzas" [value]="mouza.name">{{mouza.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <strong>এস এফ প্রদানকারী</strong>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">ভূমি অফিস</span>
+                            </div>
+                            <select class="form-control" id="landOfficeId" name="landOfficeId"
+                              [(ngModel)]="modelTopshil.landOfficeId" (change)="loadOfficeStructures()" required>
+                              <option *ngFor="let office of offices" [value]="office.id">{{office.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">তহসীলদার</span>
+                            </div>
+                            <select class="form-control" id="landOfficeStructureId" name="landOfficeStructureId" [(ngModel)]="modelTopshil.landOfficeStructureId" required>
+                              <option *ngFor="let officeStruct of officeStructures" [value]="officeStruct.id">{{officeStruct.roleName}}, {{officeStruct.branchName}} </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row pt-3">
+                        <div class="form-group col-sm-3">
+                          <label for="city">এস,এ,খং</label>
+                          <input type="text" class="form-control"
+                            id="saKhatianNo" name="saKhatianNo" placeholder="এস,এ,খং" [(ngModel)]="modelTopshil.saKhatianNo" required>
+                        </div>
+                        <div class="form-group col-sm-2">
+                          <label for="postal-code">আর,এস,খং</label>
+                          <input type="text" class="form-control"
+                            id="rsKhatianNo" name="rsKhatianNo" placeholder="আর,এস,খং" [(ngModel)]="modelTopshil.rsKhatianNo" required>
+                        </div>
+                        <div class="form-group col-sm-2">
+                          <label for="city">এস,এ দাগ</label>
+                          <input type="text" class="form-control"
+                            id="saDagNo" name="saDagNo" placeholder="এস,এ দাগ" [(ngModel)]="modelTopshil.saDagNo" required>
+                        </div>
+                        <div class="form-group col-sm-2">
+                          <label for="postal-code">আর,এস দাগ</label>
+                          <input type="text" class="form-control"
+                            id="rsDagNo" name="rsDagNo" placeholder="আর,এস দাগ" [(ngModel)]="modelTopshil.rsDagNo" required>
+                        </div>
+                        <div class="form-group col-sm-3">
+                          <label for="postal-code">জমির পরিমান (শতাংশ)</label>
+                          <input type="text" class="form-control"
+                            id="landPercent" name="landPercent" placeholder="" [(ngModel)]="modelTopshil.landPercent" required>
+                        </div>
+                      </div>
+
+                    <!-- </div> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button type="submit" [disabled]="!newCaseForm.valid" class="btn btn-success"><i class="fa fa-dot-circle-o"></i> সংরক্ষন</button>
+              <button type="reset"[disabled]="newCaseForm.untouched" class="btn btn-danger" (click)="model= {}" ><i class="fa fa-ban"></i> রিসেট</button>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  <!-- </main>
+</div> -->

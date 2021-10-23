@@ -73,7 +73,7 @@
                         <tr>
                           <td>
                             <select id="divCode" name="divCode" class="form-control"
-                              [(ngModel)]="selectedDivCode" [disabled]="selectedGeoLevel<2" (change)="loadDistricts()">
+                              [(ngModel)]="selectedDivCode" [disabled]="selectedGeoLevel<2" (change)="loadDistricts(); loadOffices()">
                               <option value="00">--</option>
                               <option *ngFor="let division of divisions" [value]="division.code"
                               >{{division.name}}</option>
@@ -81,7 +81,7 @@
                           </td>
                           <td>
                             <select id="distCode" name="distCode" class="form-control"
-                              [(ngModel)]="selectedDistCode" [disabled]="selectedGeoLevel<3" (change)="loadUpazilas()">
+                              [(ngModel)]="selectedDistCode" [disabled]="selectedGeoLevel<3" (change)="loadUpazilas(); loadOffices()">
                               <option value="00">--</option>
                               <option *ngFor="let district of districts" [value]="district.code"
                               >{{district.name}}</option>
@@ -89,7 +89,7 @@
                           </td>
                           <td>
                             <select id="upazilaCode" name="upazilaCode" class="form-control"
-                              [(ngModel)]="selectedUpazilaCode" [disabled]="selectedGeoLevel<4" (change)="loadUnions()">
+                              [(ngModel)]="selectedUpazilaCode" [disabled]="selectedGeoLevel<4" (change)="loadUnions(); loadOffices()">
                               <option value="00">--</option>
                               <option *ngFor="let upazila of upazilas" [value]="upazila.code"
                               >{{upazila.name}}</option>
@@ -97,7 +97,7 @@
                           </td>
                           <td>
                             <select id="unionCode" name="unionCode" class="form-control"
-                              [(ngModel)]="selectedUnionCode" [disabled]="selectedGeoLevel<5">
+                              [(ngModel)]="selectedUnionCode" [disabled]="selectedGeoLevel<5" (change)="loadOffices();" >
                               <option value="00">--</option>
                               <option *ngFor="let union of unions" [value]="union.code"
                               >{{union.name}}</option>

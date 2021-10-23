@@ -64,8 +64,21 @@ export class OfficeComponent implements OnInit {
   }
 
   loadOffices() {
-    this.officeService.getAllByMinistryOfficeLevel(this.model.officeLevelId).subscribe (
-      (data: GovtOffice[]) => {
+    let geoCode ="-", officeName = "-";
+    if(this.selectedDivCode !== '00') {geoCode = this.selectedDivCode;}
+    if(this.selectedDistCode !== '00') geoCode += '-'+this.selectedDistCode;
+    if(this.selectedUpazilaCode !== '00') geoCode += '-'+this.selectedUpazilaCode;
+    if(this.selectedUnionCode !== '00') geoCode += '-'+this.selectedUnionCode;
+
+    if(this.model.name === undefined)
+    {
+      officeName = '-';
+    }else
+    officeName = this.model.name;
+
+    //this.officeService.getAllByMinistryOfficeLevel(this.model.officeLevelId).subscribe (
+    this.officeService.getAllByMinistryOfficeLevelGeoCodeAndName(this.model.officeLevelId, geoCode, officeName).subscribe (
+    (data: GovtOffice[]) => {
         this.offices = data;
       }, error => {
         this.twister.error(error.message);

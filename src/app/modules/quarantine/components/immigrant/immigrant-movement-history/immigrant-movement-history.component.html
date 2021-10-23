@@ -1,0 +1,6 @@
+<ol *ngIf="movements?.length>0">
+  <li *ngFor="let move of movements">{{move.moveFrom}} => {{move.moveTo}} @{{move.movementDate|date}} for {{move.movementType}}</li>
+</ol>
+<div *ngIf="movements ==null || movements?.length==0">
+  No Movements
+</div>

@@ -1,0 +1,821 @@
+<form #findCaseForm="ngForm" (ngSubmit)="findCase()" >
+  <div class="row">
+    <div class="col-md-2 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">জেলা</span>
+        </div>
+        <select class="form-control" id="distCode" name="distCode" [(ngModel)]="searchModel.distCode"
+           id="distCode" name="distCode" (change)="loadUpazilas()" required>
+          <option value="">- সকল -</option>
+          <option *ngFor="let district of districts" [value]="district.code">{{district.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">উপজেলা</span>
+        </div>
+        <select class="form-control" name="upazilaCode" id="upazilaCode"
+          [(ngModel)]="searchModel.upazilaCode" (change)="loadUnions()" required >
+          <option value="">- সকল -</option>
+          <option *ngFor="let upazila of upazilas" [value]="upazila.code">{{upazila.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">ইউনিয়ন</span>
+        </div>
+        <select class="form-control" id="unionId" name="unionId"
+          [(ngModel)]="searchModel.unionId" (change)="findCase()" required>
+          <option [value]="">- সকল -</option>
+          <option *ngFor="let union of unions" [value]="union.id">{{union.name}}</option>
+        </select>
+        <input type="submit" class="btn btn-primary" value="খুঁজুন" />
+      </div>
+    </div>
+    <!-- <div class="col-md-3 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">শুনানীর তারিখ</span>
+        </div>
+        <input type="date" name="dateFrom" [(ngModel)]="searchModel.dateFrom">
+      </div>
+    </div>
+    <div class="col-md-3 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">হইতে</span>
+        </div>
+        <input type="date" name="dateTo" [(ngModel)]="searchModel.dateTo">
+
+      </div>
+    </div> -->
+    <!-- <div class="col-md-2 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">নং</span>
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="searchModel.caseNo" id="caseNo" name="caseNo"/>
+
+      </div>
+    </div> -->
+  </div>
+</form>
+<!-- <div class="row">
+  <div class="col-md-12 mb-1">
+    <div class="shadow card o-hidden widget-cards">
+      <h5 class="bg-info card-header text-white">
+        মামলা সমূহের সামগ্রিক অবস্থা (এক নজরে)
+      </h5>
+      <div class="card-body p-3">
+            <div class="media static-top-widget row">
+              <div class="media-body col-md-2 col-sm-6" *ngFor="let row of summaryData">
+                <span class="m-0">{{row.Status}} </span>  <!--  <i class="fa fa-plus"></i>
+                <h4 class="mb-0">
+                <span class="counter" [CountTo]="row.Total" [from]="0" [duration]="2"> {{row.Total}}</span>
+                </h4>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+</div> -->
+<div class="row">
+  <div class="col-md-12 mb-1">
+<div class="shadow card o-hidden">
+  <h5 class="bg-success card-header text-white">
+    মামলা সমূহের সামগ্রিক অবস্থা (এক নজরে)
+  </h5>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="row">
+          <div class="col" *ngFor="let row of summaryData">
+            <div class="callout callout-info">
+              <span class="text-muted">{{row.Status}}</span>
+              <br>
+              <strong class="h4 counter" [CountTo]="row.Total" [from]="0" [duration]="1">{{row.Total}} </strong>
+              (<span>{{((row.Total/this.totalRows)*100).toFixed(1)}}%</span>)
+              <div class="progress progress-xs mt-2">
+                <div class="progress-bar" role="progressbar" style.width="{{(row.Total/this.totalRows)*100}}%" attr.aria-valuenow="{{(row.Total/this.totalRows)*100}}" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="chart-wrapper" *ngIf="pieChartLabels && pieChartData">
+          <canvas baseChart class="chart"
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+</div>
+
+<!-- <div class="container" style="background-color: white;">
+  <h4>Timeline Style : Demo-1</h4>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="main-timeline">
+              <a href="#" class="timeline">
+                  <div class="timeline-icon"><i class="fa fa-globe"></i></div>
+                  <div class="timeline-content">
+                      <h3 class="title">Web Designer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
+                      </p>
+                  </div>
+              </a>
+              <a href="#" class="timeline">
+                  <div class="timeline-icon"><i class="fa fa-rocket"></i></div>
+                  <div class="timeline-content">
+                      <h3 class="title">Web Developer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
+                      </p>
+                  </div>
+              </a>
+              <a href="#" class="timeline">
+                  <div class="timeline-icon"><i class="fa fa-briefcase"></i></div>
+                  <div class="timeline-content">
+                      <h3 class="title">Web Designer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
+                      </p>
+                  </div>
+              </a>
+              <a href="#" class="timeline">
+                  <div class="timeline-icon"><i class="fa fa-mobile"></i></div>
+                  <div class="timeline-content">
+                      <h3 class="title">Web Developer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
+                      </p>
+                  </div>
+              </a>
+          </div>
+      </div>
+  </div>
+</div>
+<hr>
+
+<div class="container">
+  <h4>Timeline Style : Demo-2</h4>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="main-timeline2">
+              <div class="timeline">
+                  <span class="icon fa fa-globe"></span>
+                  <a href="#" class="timeline-content">
+                      <h3 class="title">Web Designer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis.
+                      </p>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <span class="icon fa fa-rocket"></span>
+                  <a href="#" class="timeline-content">
+                      <h3 class="title">Web Developer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis.
+                      </p>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <span class="icon fa fa-briefcase"></span>
+                  <a href="#" class="timeline-content">
+                      <h3 class="title">Web Designer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis.
+                      </p>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <span class="icon fa fa-mobile"></span>
+                  <a href="#" class="timeline-content">
+                      <h3 class="title">Web Developer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis.
+                      </p>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<hr>
+
+<div class="container">
+  <h4>Timeline Style : Demo-3</h4>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="main-timeline3">
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2018</span>
+                      <h3 class="title">Web Designer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis.
+                      </p>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2017</span>
+                      <h3 class="title">Web Developer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis.
+                      </p>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2016</span>
+                      <h3 class="title">Web Designer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis.
+                      </p>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2015</span>
+                      <h3 class="title">Web Developer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis.
+                      </p>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<hr>
+
+<div class="container">
+  <h4>Timeline Style : Demo-4</h4>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="main-timeline4">
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2018</span>
+                      <div class="inner-content">
+                          <h3 class="title">Web Designer</h3>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ex odio, rhoncus sit amet tincidunt eu, suscipit a orci. In suscipit quam eget dui auctor.
+                          </p>
+                      </div>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2017</span>
+                      <div class="inner-content">
+                          <h3 class="title">Web Developer</h3>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ex odio, rhoncus sit amet tincidunt eu, suscipit a orci. In suscipit quam eget dui auctor.
+                          </p>
+                      </div>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2016</span>
+                      <div class="inner-content">
+                          <h3 class="title">Web Designer</h3>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ex odio, rhoncus sit amet tincidunt eu, suscipit a orci. In suscipit quam eget dui auctor.
+                          </p>
+                      </div>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2015</span>
+                      <div class="inner-content">
+                          <h3 class="title">Web Developer</h3>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ex odio, rhoncus sit amet tincidunt eu, suscipit a orci. In suscipit quam eget dui auctor.
+                          </p>
+                      </div>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<hr>
+
+<div class="container">
+  <h4>মামলা সমূহের সামগ্রিক অবস্থা (এক নজরে)</h4>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="main-timeline5">
+              <div class="timeline">
+                  <div class="timeline-icon"><span class="year">2018</span></div>
+                  <div class="timeline-content">
+                      <h3 class="title">SF Pending</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia mi ultrices, luctus nunc ut, commodo enim. Vivamus sem erat.
+                      </p>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <div class="timeline-icon"><span class="year">2017</span></div>
+                  <div class="timeline-content">
+                      <h3 class="title">SF Not Sent To GP Office</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia mi ultrices, luctus nunc ut, commodo enim. Vivamus sem erat.
+                      </p>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <div class="timeline-icon"><span class="year">2016</span></div>
+                  <div class="timeline-content">
+                      <h3 class="title">Waiting for GP Office Reply</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia mi ultrices, luctus nunc ut, commodo enim. Vivamus sem erat.
+                      </p>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <div class="timeline-icon"><span class="year">2015</span></div>
+                  <div class="timeline-content">
+                      <h3 class="title">Waiting for GP Office Reply</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia mi ultrices, luctus nunc ut, commodo enim. Vivamus sem erat.
+                      </p>
+                  </div>
+              </div>
+              <div class="timeline">
+                <div class="timeline-icon"><span class="year">2015</span></div>
+                <div class="timeline-content">
+                    <h3 class="title">Signed Reply Not Sent To GP Office</h3>
+                    <p class="description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia mi ultrices, luctus nunc ut, commodo enim. Vivamus sem erat.
+                    </p>
+                </div>
+            </div>
+            <div class="timeline">
+              <div class="timeline-icon"><span class="year">2015</span></div>
+              <div class="timeline-content">
+                  <h3 class="title">Hearing Continuing</h3>
+                  <p class="description">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia mi ultrices, luctus nunc ut, commodo enim. Vivamus sem erat.
+                  </p>
+              </div>
+          </div>
+          <div class="timeline">
+            <div class="timeline-icon"><span class="year">2015</span></div>
+            <div class="timeline-content">
+                <h3 class="title">Appeal Hearing Continuing</h3>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia mi ultrices, luctus nunc ut, commodo enim. Vivamus sem erat.
+                </p>
+            </div>
+        </div>
+          </div>
+      </div>
+  </div>
+</div>
+<hr>
+
+<div class="demo">
+  <div class="container">
+      <h4>Timeline Style : Demo-6</h4>
+      <div class="row">
+          <div class="col-md-12">
+              <div class="main-timeline6">
+                  <div class="timeline">
+                      <div class="timeline-content">
+                          <span class="year">2018</span>
+                          <div class="content-inner">
+                              <span class="icon"><i class="fa fa-globe"></i></span>
+                              <h3 class="title">Web Designer</h3>
+                              <p class="description">
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis. Quisque eu ornare risus, vitae fermentum eros. Etiam venenatis ac.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="timeline">
+                      <div class="timeline-content">
+                          <span class="year">2017</span>
+                          <div class="content-inner">
+                              <span class="icon"><i class="fa fa-rocket"></i></span>
+                              <h3 class="title">Web Developer</h3>
+                              <p class="description">
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis. Quisque eu ornare risus, vitae fermentum eros. Etiam venenatis ac.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="timeline">
+                      <div class="timeline-content">
+                          <span class="year">2016</span>
+                          <div class="content-inner">
+                              <span class="icon"><i class="fa fa-briefcase"></i></span>
+                              <h3 class="title">Web Designer</h3>
+                              <p class="description">
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis. Quisque eu ornare risus, vitae fermentum eros. Etiam venenatis ac.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="timeline">
+                      <div class="timeline-content">
+                          <span class="year">2015</span>
+                          <div class="content-inner">
+                              <span class="icon"><i class="fa fa-mobile"></i></span>
+                              <h3 class="title">Web Developer</h3>
+                              <p class="description">
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis. Quisque eu ornare risus, vitae fermentum eros. Etiam venenatis ac.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="container">
+  <h4>Timeline Style : Demo-7</h4>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="main-timeline7">
+              <div class="timeline">
+                  <div class="timeline-icon"><i class="fa fa-globe"></i></div>
+                  <span class="year">2018</span>
+                  <div class="timeline-content">
+                      <h5 class="title">Web Desginer</h5>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis felis vitae risus pulvinar tincidunt. Nam ac venenatis enim. Aenean hendrerit justo sed.
+                      </p>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <div class="timeline-icon"><i class="fa fa-rocket"></i></div>
+                  <span class="year">2017</span>
+                  <div class="timeline-content">
+                      <h5 class="title">Web Developer</h5>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis felis vitae risus pulvinar tincidunt. Nam ac venenatis enim. Aenean hendrerit justo sed.
+                      </p>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <div class="timeline-icon"><i class="fa fa-briefcase"></i></div>
+                  <span class="year">2016</span>
+                  <div class="timeline-content">
+                      <h5 class="title">Web Desginer</h5>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis felis vitae risus pulvinar tincidunt. Nam ac venenatis enim. Aenean hendrerit justo sed.
+                      </p>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <div class="timeline-icon"><i class="fa fa-mobile"></i></div>
+                  <span class="year">2015</span>
+                  <div class="timeline-content">
+                      <h5 class="title">Web Developer</h5>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mattis felis vitae risus pulvinar tincidunt. Nam ac venenatis enim. Aenean hendrerit justo sed.
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<hr>
+
+<div class="container">
+  <h4>Timeline Style : Demo-8</h4>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="main-timeline8">
+              <div class="timeline">
+                  <span class="timeline-icon"></span>
+                  <span class="year">2017</span>
+                  <div class="timeline-content">
+                      <h3 class="title">Web Desginer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mattis justo id pulvinar suscipit. Pellentesque rutrum vehicula erat sed dictum. Integer quis turpis magna. Suspendisse tincidunt elit at erat tincidunt, vel vulputate arcu dapibus. Etiam accumsan ornare posuere. Nullam est.
+                      </p>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <span class="timeline-icon"></span>
+                  <span class="year">2016</span>
+                  <div class="timeline-content">
+                      <h3 class="title">Web Developer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mattis justo id pulvinar suscipit. Pellentesque rutrum vehicula erat sed dictum. Integer quis turpis magna. Suspendisse tincidunt elit at erat tincidunt, vel vulputate arcu dapibus. Etiam accumsan ornare posuere. Nullam est.
+                      </p>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <span class="timeline-icon"></span>
+                  <span class="year">2015</span>
+                  <div class="timeline-content">
+                      <h3 class="title">Web Desginer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mattis justo id pulvinar suscipit. Pellentesque rutrum vehicula erat sed dictum. Integer quis turpis magna. Suspendisse tincidunt elit at erat tincidunt, vel vulputate arcu dapibus. Etiam accumsan ornare posuere. Nullam est.
+                      </p>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <span class="timeline-icon"></span>
+                  <span class="year">2014</span>
+                  <div class="timeline-content">
+                      <h3 class="title">Web Developer</h3>
+                      <p class="description">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mattis justo id pulvinar suscipit. Pellentesque rutrum vehicula erat sed dictum. Integer quis turpis magna. Suspendisse tincidunt elit at erat tincidunt, vel vulputate arcu dapibus. Etiam accumsan ornare posuere. Nullam est.
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<hr>
+
+<div class="container">
+  <h4>Timeline Style : Demo-9</h4>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="main-timeline9">
+              <div class="timeline">
+                  <div class="timeline-content">
+                      <div class="circle"><span><i class="fa fa-globe"></i></span></div>
+                      <div class="content">
+                          <span class="year">2014 - 2015</span>
+                          <h4 class="title">Web Desginer</h4>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non lectus justo. Nam ultricies laoreet massa sed maximus. Curabitur tristique sagittis scelerisque. Vivamus posuere nisi quis tortor interdum, in finibus risus convallis. Suspendisse efficitur lacus a nulla commodo, sit amet vestibulum nibh.
+                          </p>
+                          <div class="icon"><span></span></div>
+                      </div>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <div class="timeline-content">
+                      <div class="circle"><span><i class="fa fa-rocket"></i></span></div>
+                      <div class="content">
+                          <span class="year">2015 - 2016</span>
+                          <h4 class="title">Web Developer</h4>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non lectus justo. Nam ultricies laoreet massa sed maximus. Curabitur tristique sagittis scelerisque. Vivamus posuere nisi quis tortor interdum, in finibus risus convallis. Suspendisse efficitur lacus a nulla commodo, sit amet vestibulum nibh.
+                          </p>
+                          <div class="icon"><span></span></div>
+                      </div>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <div class="timeline-content">
+                      <div class="circle"><span><i class="fa fa-briefcase"></i></span></div>
+                      <div class="content">
+                          <span class="year">2016 - 2017</span>
+                          <h4 class="title">Web Desginer</h4>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non lectus justo. Nam ultricies laoreet massa sed maximus. Curabitur tristique sagittis scelerisque. Vivamus posuere nisi quis tortor interdum, in finibus risus convallis. Suspendisse efficitur lacus a nulla commodo, sit amet vestibulum nibh.
+                          </p>
+                          <div class="icon"><span></span></div>
+                      </div>
+                  </div>
+              </div>
+              <div class="timeline">
+                  <div class="timeline-content">
+                      <div class="circle"><span><i class="fa fa-mobile"></i></span></div>
+                      <div class="content">
+                          <span class="year">2017 - 2018</span>
+                          <h4 class="title">Web Developer</h4>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non lectus justo. Nam ultricies laoreet massa sed maximus. Curabitur tristique sagittis scelerisque. Vivamus posuere nisi quis tortor interdum, in finibus risus convallis. Suspendisse efficitur lacus a nulla commodo, sit amet vestibulum nibh.
+                          </p>
+                          <div class="icon"><span></span></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<hr>
+
+<div class="container" style="background-color: white;">
+  <h4>Timeline Style : Demo-10</h4>
+  <div class="row">
+      <div class="main-timeline10">
+          <div class="col-md-3 col-sm-6 timeline">
+              <div class="timeline-inner">
+                  <div class="year">2015</div>
+                  <div class="timeline-content">
+                      <div class="post">SF Pending</div>
+                      <p class="description">
+Some  text need to be here
+                      </p>
+                  </div>
+                  <div class="timeline-icon">
+                      <i class="fa fa-globe"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-6 timeline">
+              <div class="timeline-inner">
+                  <div class="year">2016</div>
+                  <div class="timeline-content">
+                      <div class="post">SF Not Sent To GP Office</div>
+                      <p class="description">
+
+                      </p>
+                  </div>
+                  <div class="timeline-icon">
+                      <i class="fa fa-rocket"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-6 timeline">
+              <div class="timeline-inner">
+                  <div class="year">2018</div>
+                  <div class="timeline-content">
+                      <div class="post">Waiting for GP Office Reply</div>
+                      <p class="description">
+
+                      </p>
+                  </div>
+                  <div class="timeline-icon">
+                      <i class="fa fa-briefcase"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3 col-sm-6 timeline">
+              <div class="timeline-inner">
+                  <div class="year">2017</div>
+                  <div class="timeline-content">
+                      <div class="post">Signed Reply Not Sent To GP Office</div>
+                      <p class="description">
+
+                      </p>
+                  </div>
+                  <div class="timeline-icon">
+                      <i class="fa fa-camera"></i>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<hr>
+
+<div class="container">
+  <h4>Timeline Style : Demo-11</h4>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="main-timeline11">
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2018</span>
+                      <div class="inner-content">
+                          <h3 class="title">Web Designer</h3>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis. Quisque eu ornare risus, vitae fermentum eros. Etiam venenatis ac.
+                          </p>
+                      </div>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2017</span>
+                      <div class="inner-content">
+                          <h3 class="title">Web Developer</h3>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis. Quisque eu ornare risus, vitae fermentum eros. Etiam venenatis ac.
+                          </p>
+                      </div>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2016</span>
+                      <div class="inner-content">
+                          <h3 class="title">Web Designer</h3>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis. Quisque eu ornare risus, vitae fermentum eros. Etiam venenatis ac.
+                          </p>
+                      </div>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2015</span>
+                      <div class="inner-content">
+                          <h3 class="title">Web Developer</h3>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis. Quisque eu ornare risus, vitae fermentum eros. Etiam venenatis ac.
+                          </p>
+                      </div>
+                  </a>
+              </div>
+              <div class="timeline">
+                  <a href="#" class="timeline-content">
+                      <span class="year">2014</span>
+                      <div class="inner-content">
+                          <h3 class="title">Web Designer</h3>
+                          <p class="description">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada tellus lorem, et condimentum neque commodo quis. Quisque eu ornare risus, vitae fermentum eros. Etiam venenatis ac.
+                          </p>
+                      </div>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<hr>
+
+<div class="container">
+  <h4>মামলা সমূহের সামগ্রিক অবস্থা (এক নজরে)</h4>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="main-timeline12">
+              <div class="col-md-2 col-sm-4 timeline">
+                  <span class="timeline-icon">
+                      <i class="fa fa-key1">300</i>
+                  </span>
+                  <div class="border"></div>
+                  <div class="timeline-content">
+                      <h4 class="title">এসএফ পাওয়ার অপেক্ষায়</h4>
+                      <p class="description">&nbsp;</p>
+                  </div>
+              </div>
+              <div class="col-md-2 col-sm-4 timeline">
+                  <div class="timeline-content">
+                      <h4 class="title">এসএফ জিপি অফিসে প্রেরণ অপেক্ষমান</h4>
+                      <p class="description"></p>
+                  </div>
+                  <div class="border"></div>
+                      <span class="timeline-icon">
+                          <i class="fa fa-key"></i>
+                      </span>
+              </div>
+              <div class="col-md-2 col-sm-4 timeline">
+                  <span class="timeline-icon">
+                      <i class="fa fa-key"></i>
+                  </span>
+                  <div class="border"></div>
+                  <div class="timeline-content">
+                      <h4 class="title">জিপি অফিসের জবাব পাওয়ার অপেক্ষায়</h4>
+                      <p class="description"></p>
+                  </div>
+              </div>
+              <div class="col-md-2 col-sm-4 timeline">
+                  <div class="timeline-content">
+                      <h4 class="title">সাক্ষরিত জবাব জিপি অফিসের প্রেরণের অপেক্ষায়</h4>
+                      <p class="description"></p>
+                  </div>
+                  <div class="border"></div>
+                  <span class="timeline-icon">
+                      <i class="fa fa-key"></i>
+                  </span>
+              </div>
+              <div class="col-md-2 col-sm-4 timeline">
+                  <span class="timeline-icon">
+                      <i class="fa fa-key"></i>
+                  </span>
+                  <div class="border"></div>
+                  <div class="timeline-content">
+                      <h4 class="title">শুনানী চলমান</h4>
+                      <p class="description">&nbsp;</p>
+                  </div>
+              </div>
+              <div class="col-md-2 col-sm-4 timeline">
+                  <div class="timeline-content">
+                      <h4 class="title">আপিল শুনানী চলমান</h4>
+                      <p class="description"></p>
+                  </div>
+                  <div class="border"></div>
+                  <span class="timeline-icon">
+                      <i class="fa fa-key1">2003</i>
+                  </span>
+              </div>
+          </div>
+      </div>
+  </div>
+</div> -->

@@ -1,0 +1,15 @@
+<div class="col-sm-12">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">ফলাফল পক্ষে?</span>
+      </div>
+      <label class="switch-lg switch-label switch-pill switch-success m-1">
+        <input type="checkbox" class="switch-input" [(ngModel)] = "caseResult">
+        <span class="switch-slider" data-checked="হ্যাঁ" data-unchecked="না"></span>
+      </label>
+      <input type="button"class="btn btn-primary" value="সংরক্ষন" (click)="updateResult()" >
+
+    </div>
+  </div>
+</div>

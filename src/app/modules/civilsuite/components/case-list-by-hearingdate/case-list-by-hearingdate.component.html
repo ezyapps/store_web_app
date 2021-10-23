@@ -1,0 +1,171 @@
+<div class="animated fadeIn">
+  <form #findCaseForm="ngForm" (ngSubmit)="findCase()" >
+  <div class="row">
+    <div class="col-md-2 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">জেলা</span>
+        </div>
+        <select class="form-control" id="distCode" name="distCode" [(ngModel)]="searchModel.distCode"
+           id="distCode" name="distCode" (change)="loadUpazilas()" required>
+          <option [value]="">- সকল -</option>
+          <option *ngFor="let district of districts" [value]="district.code">{{district.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">উপজেলা</span>
+        </div>
+        <select class="form-control" name="upazilaCode" id="upazilaCode"
+          [(ngModel)]="searchModel.upazilaCode" (change)="loadUnions()" required >
+          <option [value]="">- সকল -</option>
+          <option *ngFor="let upazila of upazilas" [value]="upazila.code">{{upazila.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">ইউনিয়ন</span>
+        </div>
+        <select class="form-control" id="unionId" name="unionId"
+          [(ngModel)]="searchModel.unionId" (change)="findCase()" required>
+          <option [value]="">- সকল -</option>
+          <option *ngFor="let union of unions" [value]="union.id">{{union.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">শুনানীর তারিখ</span>
+        </div>
+        <input type="date" name="dateFrom" [(ngModel)]="searchModel.dateFrom">
+      </div>
+    </div>
+    <div class="col-md-3 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">হইতে</span>
+        </div>
+        <input type="date" name="dateTo" [(ngModel)]="searchModel.dateTo">
+        <input type="submit" class="btn btn-primary" value="খুঁজুন" />
+      </div>
+    </div>
+    <!-- <div class="col-md-2 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">নং</span>
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="searchModel.caseNo" id="caseNo" name="caseNo"/>
+
+      </div>
+    </div> -->
+  </div>
+</form>
+<div class="row">
+  <div class="col-md-12" style="background-color: white;">
+    <mat-tab-group>
+      <mat-tab label="নিয়মিত মামলা সমূহ">
+            <mat-form-field>
+              <mat-label>খুঁজুন</mat-label>
+              <input matInput (keyup)="applyFilter($event)">
+            </mat-form-field>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+              <ng-container matColumnDef="CaseNo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> মামলা নং </th>
+                <td mat-cell *matCellDef="let case" > {{case.CaseNo}} | <span tooltip="{{case.CaseDescription}}" style="cursor: pointer;" alt='মামলা বিস্তারিত' ><i class="fa fa-info-circle"></i> </span></td>
+              </ng-container>
+              <ng-container matColumnDef="Complaintant">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> বাদী </th>
+                <td mat-cell *matCellDef="let case"> {{case.Complaintant}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Defendant">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> বিবাদী </th>
+                <td mat-cell *matCellDef="let case"> {{case.Defendant}} </td>
+              </ng-container>
+              <ng-container matColumnDef="UpzName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> উপজেলা </th>
+                <td mat-cell *matCellDef="let case"> {{case.UpzName}}- {{case.DistName}} </td>
+              </ng-container>
+              <ng-container matColumnDef="LandPercent" >
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ভূমির পরিমান </th>
+                <td mat-cell *matCellDef="let case"> {{case.LandPercent}} </td>
+              </ng-container>
+              <ng-container matColumnDef="HearingDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> শুনানীর তারিখ </th>
+                <td mat-cell *matCellDef="let case"> {{case.HearingDate|date}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> সর্বশেষ অবস্থা </th>
+                <td mat-cell *matCellDef="let case"> {{case.Status}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> কার্যক্রম </th>
+                <td mat-cell *matCellDef="let case">
+                  <!-- <span (click) = 'caseDetails(case.CaseNo)' style="cursor: pointer;" alt='মামলা বিস্তারিত' > <i class="fa fa-edit"></i> </span> | -->
+                    <span (click) = 'loadProgressWindow(case.Id)' style="cursor: pointer;"> <i class="fa fa-gear"></i> </span>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+              <tr mat-row *matRowDef="let case; columns: displayColumns"></tr>
+            </table>
+            <mat-paginator [length]="caseList?.length" [pageSize]="3" [pageSizeOptions]="[3, 5, 10, 25, 100]"></mat-paginator>
+
+      </mat-tab>
+      <mat-tab label="আপিল মামলা সমূহ">
+        <mat-form-field>
+          <mat-label>খুঁজুন</mat-label>
+          <input matInput (keyup)="applyFilterApl($event)">
+        </mat-form-field>
+        <table mat-table [dataSource]="dataSourceApl" class="mat-elevation-z8" matSort #AplTableSort="matSort">
+          <ng-container matColumnDef="AplCaseNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> মামলা নং </th>
+            <td mat-cell *matCellDef="let case" > {{case.AplCaseNo}} | <span tooltip="{{case.CaseDescription}}" style="cursor: pointer;" alt='মামলা বিস্তারিত' ><i class="fa fa-info-circle"></i> </span></td>
+          </ng-container>
+          <ng-container matColumnDef="Complaintant">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> বাদী </th>
+            <td mat-cell *matCellDef="let case"> {{case.Complaintant}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Defendant">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> বিবাদী </th>
+            <td mat-cell *matCellDef="let case"> {{case.Defendant}} </td>
+          </ng-container>
+          <ng-container matColumnDef="UpzName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> উপজেলা </th>
+            <td mat-cell *matCellDef="let case"> {{case.UpzName}}- {{case.DistName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="LandPercent" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ভূমির পরিমান </th>
+            <td mat-cell *matCellDef="let case"> {{case.LandPercent}} </td>
+          </ng-container>
+          <ng-container matColumnDef="HearingDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> শুনানীর তারিখ </th>
+            <td mat-cell *matCellDef="let case"> {{case.HearingDate|date}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> সর্বশেষ অবস্থা </th>
+            <td mat-cell *matCellDef="let case"> {{case.Status}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> কার্যক্রম </th>
+            <td mat-cell *matCellDef="let case">
+              <span (click) = 'caseDetails(case.CaseNo)' style="cursor: pointer;" alt='মামলা বিস্তারিত' > <i class="fa fa-edit"></i> </span> |
+                <span (click) = 'loadProgressWindow(case.Id)' style="cursor: pointer;"> <i class="fa fa-edit"></i> </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayAppealColumns"></tr>
+          <tr mat-row *matRowDef="let case; columns: displayAppealColumns"></tr>
+        </table>
+        <mat-paginator #AplTablePaginator="matPaginator" [length]="caseListApl?.length" [pageSize]="3" [pageSizeOptions]="[3, 5, 10, 25, 100]"></mat-paginator>
+      </mat-tab>
+    </mat-tab-group>
+</div>
+</div>
+
+</div>
+

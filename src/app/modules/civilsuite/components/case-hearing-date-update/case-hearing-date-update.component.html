@@ -1,0 +1,21 @@
+<form #hearingDateForm="ngForm" (submit)="AddHearingDate()" >
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table-bordered">
+        <tbody>
+          <tr>
+            <td>পরবর্তী তারিখ</td>
+            <td><input type="date" id="ActionDate" name="ActionDate" class="form-control" [(ngModel)]="model.HearingDate"></td>
+            <td>কোর্ট তথ্য</td>
+            <td>
+              <input type="text" id="courtInfo" name="courtInfo" class="form-control" [(ngModel)]="model.CourtNo">
+            </td>
+            <td>
+              <input type="submit" value="সংরক্ষন">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</form>

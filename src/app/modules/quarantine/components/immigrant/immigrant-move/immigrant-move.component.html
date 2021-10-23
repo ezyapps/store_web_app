@@ -1,0 +1,143 @@
+<div class="card">
+  <!-- <div class="card-header">
+    Quarantine / Refer
+  </div> -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="tokenNo">Token No.</label>
+              <span id="tokenNo" class="form-control">{{model.TokenNo}}</span>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="passportNo">Passport No.</label>
+              <span id="passportNo" class="form-control">{{model.PassportNo}}</span>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <span id="name" class="form-control">{{model.Name}}</span>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <span id="gender" class="form-control">{{model.Gender}}</span>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="phoneNo">Phone No</label>
+              <span id="phoneNo" class="form-control">{{model.PhoneNo}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="category">Category</label>
+              <span id="category" class="form-control">{{model.Category}}</span>
+            </div>
+
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="address">Address</label>
+              <span id="address" class="form-control">{{model.Address}}</span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="imgrdistrict">District</label>
+              <span id="imgrdistrict" class="form-control">{{model.DistrictName}}</span>
+            </div>
+          </div>
+          <div class="col-sm-3" style="background-color: wheat;">
+            <div class="form-group">
+              <label for="lastLocation"><b>Present Location</b></label>
+              <span id="lastLocation" class="form-control" style="font-weight: bold; color: slateblue;">{{model.LastLocation}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4">
+            Movement History
+            <app-immigrant-movement-history [immigrantId]="model.Id"></app-immigrant-movement-history>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="form-group">
+                  <label for="action">Action</label> ||
+                  <input type="radio" id="quarantineAction" value="Quarantine" name="action" [(ngModel)]="action"  (click)="changeAction('')">
+                  <label for="quarantineAction">Quarantine</label>
+                  <input type="radio" id="referAction" value="Refer" name="action"  [(ngModel)]="action"  (click)="changeAction('Refer')">
+                  <label for="quarantineRefer">Refer</label>
+                  || <input id="inDistrictCkbx" type="checkbox" #indistrict checked (click)="alterInDistrict(indistrict.checked)">
+                  <label for="inDistrictCkbx">In-District:</label>
+                </div>
+              </div>
+
+            </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="movementDate">Movement Date</label>
+                    <input type="date" id="movementDate" class="form-control" name="MovementDate" [(ngModel)]="model.MovementDate">
+                  </div>
+                </div>
+                  <div class="col-md-4">
+                    <label for="division">Division</label>
+                    <select id="division" name="division" class="form-control"  [(ngModel)]="selectedDivCode" (change)="loadDistricts()" >
+                      <option value="">-Select-</option>
+                      <option *ngFor="let division of divisions" [value]="division.code">{{division.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="qdistrict">District</label>
+                    <select id="qdistrict" name="qdisrict"   class="form-control" [(ngModel)]="selectedQDist" (change)="loadQuarantinCenters()" >
+                      <option value="">-Select-</option>
+                      <option *ngFor="let district of districts" [value]="district.code" >{{district.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">  <!--*ngIf="inDistrict==true || action == 'Refer'" -->
+                    <label for="centerType">Center Type</label>
+                    <select id="centerType" name="centerType" class="form-control" [(ngModel)]="centerModel.Type" (change)="loadQuarantinCenters()">
+                      <option value="">- Any -</option>
+                      <option value="Hospital" [selected]="action=='Refer'" >Hospital</option>
+                      <option value="Hotel" >Hotel</option>
+                      <option value="Other" >Other</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6" > <!--*ngIf="inDistrict==true || action == 'Refer'"-->
+                    <label for="center">Center</label>
+                    <select id="center" name="center" class="form-control" [(ngModel)]="model.Center">
+                      <option value="">- Select -</option>
+                      <option *ngFor="let center of centers" [value]="center.Name" >{{center.Name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 mt-2">
+                    <button (click)="saveData()" pButton label='Save Immigrant Info' icon="pi pi-check" iconPos="right" class="p-button-sm" ></button>
+                  </div>
+                </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,212 @@
+<form #newImmigrantForm="ngForm" (ngSubmit)="saveNewImmigrant()" style="font-family: 'Times New Roman', Times, serif;" >
+<div class="card">
+  <div class="card-header">
+    New Immigrant Entry
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-sm-1">
+            <div class="form-group">
+              <label for="tokenNo">Token No.</label>
+              <input type="text" id="tokenNo" name="tokenNo" [(ngModel)]="model.TokenNo" class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="passportNo">Passport No.</label>
+              <input type="text" id="passportNo" name="PassportNo" [(ngModel)]="model.PassportNo" class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="Name" [(ngModel)]="model.Name" class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="phoneNo">Phone No</label>
+              <input type="text" id="phoneNo" name="PhoneNo" [(ngModel)]="model.PhoneNo" class="form-control">
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="Gender">Gender</label>
+              <select id="gender" name="gender" class="form-control" [(ngModel)]="model.Gender" required >
+                <option value="">-Select-</option>
+                <option value="M">M</option>
+                <option value="M">F</option>
+                <option value="M-Child">M-Child</option>
+                <option value="F-Child">F-Child</option>
+                <option value="X">X</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="imgrdistrict">Category</label>
+              <select id="category" name="category" class="form-control" [(ngModel)]="model.Category" required >
+                <option value="">-Select-</option>
+                <option *ngFor="let category of categories" [value]="category.value" >{{category.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="imgrdistrict">District</label>
+              <!-- <p-dropdown [options]="imgrDistricts" [(ngModel)]="model.District" optionLabel="name"
+                 [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a District"></p-dropdown> -->
+              <select id="imgrdistrict" name="disrict" class="form-control" [(ngModel)]="model.District" required >
+                <option value="">-Select-</option>
+                <option *ngFor="let district of imgrDistricts" [value]="district.code" >{{district.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" id="address" name="Address" [(ngModel)]="model.Address" class="form-control">
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label for="submitBtn">&nbsp;</label>
+              <!-- <button type="submit" pButton [disabled]="!newImmigrantForm.valid" label='Save New Immigrant' icon="pi pi-check" iconPos="right" class="p-button-sm" ></button> -->
+              <input id="submitBtn" type="submit" class="btn btn-success form-control" [disabled]="!newImmigrantForm.valid" value="Save New Immigrant">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- <div class="col-md-5">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="action">Action</label> ||
+
+              <input type="radio" id="quarantineAction" value="Quarantine" name="action" [(ngModel)]="action"  (click)="changeAction('')">
+              <label for="quarantineAction">Quarantine</label>
+              <input type="radio" id="referAction" value="Refer" name="action"  [(ngModel)]="action"  (click)="changeAction('Refer')">
+              <label for="quarantineRefer">Refer</label>
+
+            </div>
+          </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input id="inDistrictCkbx" type="checkbox" #indistrict checked (click)="alterInDistrict(indistrict.checked)">
+              <label for="inDistrictCkbx">In-District:</label>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-6">
+                <label for="division">Division</label>
+                <select id="division" name="division" class="form-control"  [(ngModel)]="selectedDivCode" (change)="loadDistricts()" >
+                  <option value="">-Select-</option>
+                  <option *ngFor="let division of divisions" [value]="division.code">{{division.name}}</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="qdistrict">District</label>
+                <select id="qdistrict" name="qdisrict"   class="form-control" [(ngModel)]="selectedQDist" (change)="loadQuarantinCenters()" >
+                  <option value="">-Select-</option>
+                  <option *ngFor="let district of districts" [value]="district.code" >{{district.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6" *ngIf="inDistrict==true || action == 'Refer'">
+                <label for="centerType">Center Type</label>
+                <select id="centerType" name="centerType" class="form-control" [(ngModel)]="centerModel.Type" (change)="loadQuarantinCenters()">
+                  <option value="">- Any -</option>
+                  <option value="Hospital" [selected]="action=='Refer'" >Hospital</option>
+                  <option value="Hotel" >Hotel</option>
+                  <option value="Other" >Other</option>
+                </select>
+              </div>
+              <div class="col-md-6" *ngIf="inDistrict==true || action == 'Refer'">
+                <label for="center">Center</label>
+                <select id="center" name="center" class="form-control" [(ngModel)]="model.Center">
+                  <option value="">- Select -</option>
+                  <option *ngFor="let center of centers" [value]="center.Name" >{{center.Name}}</option>
+                </select>
+              </div>
+            </div>
+
+      </div> -->
+    </div>
+  </div>
+</div>
+</form>
+<!-- <div class="card">
+  <div class="card-header">
+  Today's Immigrants
+  </div>
+  <div class="card-body"> -->
+    <div class="row">
+      <div class="col-md-12" style="background-color: white;">
+        <button mat-button (click)="exporter.exportTable('csv')"></button>
+        <mat-form-field>
+          <mat-label>খুঁজুন</mat-label>
+          <input matInput (keyup)="applyFilter($event)">
+        </mat-form-field>
+        <table mat-table matTableExporter [dataSource]="dataSource" class="mat-elevation-z8" matSort #exporter="matTableExporter">
+          <ng-container matColumnDef="TokenNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Token No </th>
+            <td mat-cell *matCellDef="let center" > {{center.TokenNo}}</td>
+          </ng-container>
+          <ng-container matColumnDef="PassportNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Passport No </th>
+            <td mat-cell *matCellDef="let center" > {{center.PassportNo}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let case"> {{case.Name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Gender">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+            <td mat-cell *matCellDef="let case"> {{case.Gender}} </td>
+          </ng-container>
+          <ng-container matColumnDef="PhoneNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+            <td mat-cell *matCellDef="let case"> {{case.PhoneNo}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Category">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+            <td mat-cell *matCellDef="let case"> {{case.Category}} </td>
+          </ng-container>
+          <ng-container matColumnDef="DistrictName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> District </th>
+            <td mat-cell *matCellDef="let case"> {{case.DistrictName}} </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="LastLocation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Location </th>
+            <td mat-cell *matCellDef="let case"> {{case.LastLocation}} </td>
+          </ng-container>
+          <ng-container matColumnDef="PortAction" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action on Port </th>
+            <td mat-cell *matCellDef="let case"> {{case.PortAction}} </td>
+          </ng-container> -->
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let case">
+              <!-- <span (click) = 'caseDetails(case.CaseNo)' style="cursor: pointer;" alt='মামলা বিস্তারিত' > <i class="fa fa-edit"></i> </span> |
+              <span (click) = 'loadProgressWindow(case.Id)' style="cursor: pointer;"> <i class="fa fa-edit"></i> </span> -->
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+          <tr mat-row *matRowDef="let case; columns: displayColumns"></tr>
+        </table>
+        <mat-paginator [length]="centers?.length" [pageSize]="3" [pageSizeOptions]="[3, 5, 10, 25, 100]"></mat-paginator>
+
+      </div>
+    </div>
+  <!-- </div>
+</div> -->
+

@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { CrudService } from '../../../common/_services/crud.service';
 import { GeoMouza } from '../models/geo-mouza.model';
-import { GeoUnion } from '../models/geo-union.module';
-import { GeoUpazila } from '../models/geo-upazia.module';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +18,7 @@ export class MouzaService extends CrudService<GeoMouza, string> {
   getAll(parentCode): Observable<GeoMouza[]> {
     return this._http.get<GeoMouza[]>(this.baseUrl + '/withparent/' + parentCode);
   }
-
+  getAllByUpazila(dist_upazilaCode): Observable<GeoMouza[]> {
+    return this._http.get<GeoMouza[]>(this.baseUrl + '/getallbyupazila/' + dist_upazilaCode);
+  }
 }

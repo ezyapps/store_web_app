@@ -1,0 +1,41 @@
+<div class="card shadow">
+  <div class="card-header">
+    আপীল মামলা নং - {{appealCaseDetails.caseNo}}
+  </div>
+  <div class="card-body">
+    <div class="row" *ngIf="lastHearingDate != null">
+      <div class="col">
+        সর্বশেষ শুনানীর তারিখঃ {{lastHearingDate?.hearingDate|date}} ।। কোর্ট তথ্যঃ {{lastHearingDate?.courtNo}}
+      </div>
+    </div>
+    <tabset *ngIf="appealCaseDetails.status === 'চলমান'">
+      <tab heading="শুনানীর তারিখ" style="background-color: #F3F3F7;">
+        <app-case-hearing-date-update
+        [caseId] = "caseId"
+        [appealCaseDetails]="appealCaseDetails"
+        (addedNewDate) = "loadList($event); closePopupWindow($event)" ></app-case-hearing-date-update>
+      </tab>
+      <tab heading="ফলাফল">
+        <app-appeal-case-result-update
+          [caseId]="caseId"
+          [appealCaseDetails]="appealCaseDetails"
+          (caseResultUpdated)="closePopupWindow($event)"
+          ></app-appeal-case-result-update>
+      </tab>
+    </tabset>
+
+    <div class="row"  *ngIf="appealCaseDetails.status !== 'চলমান'">
+      <div class="col">
+        {{appealCaseDetails.status}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        শুনানীর তারিখ সমূহঃ
+        <app-case-hearing-date-list  [hearingDates] = "hearingDateList" ></app-case-hearing-date-list>
+      </div>
+    </div>
+
+  </div>
+
+</div>
