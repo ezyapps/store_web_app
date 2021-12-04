@@ -1,5 +1,5 @@
 // Variable overrides
-$body-bg:                         rgba(213, 218, 223, 0.808) !default;
+$body-bg:                         rgba(255, 255, 255, 0.808) !default;
 $breadcrumb-bg:                   rgba(#FFFFFF, 1.0) !default;
 $breadcrumb-margin-bottom:        0.1rem !default;
 
@@ -13,15 +13,15 @@ $layout-transition-speed:             .25s !default;
 // Navbar
 
 $navbar-height:                       70px !default;
-$navbar-bg:                           rgba(218, 243, 190, 0.7) !default; // rgba(103, 141, 13, 0.479)
+$navbar-bg:                           rgba(79, 23, 105, 0.993) !default; // rgba(103, 141, 13, 0.479)
 
 $navbar-brand-width:                  155px !default;
 $navbar-brand-bg:                     transparent !default;
 $navbar-brand-border:                 0 !default;
 
-$navbar-color:                        green !default;
-$navbar-hover-color:                  #8c00ff !default;
-$navbar-active-color:                 #8c00ff !default;
+$navbar-color:                        rgb(169, 192, 169) !default;
+$navbar-hover-color:                  #fffb00 !default;
+$navbar-active-color:                 #fffb00 !default;
 $navbar-disabled-color:               gray !default;
 
 

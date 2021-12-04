@@ -41,7 +41,7 @@ export class DefaultLayoutComponent implements OnInit {
       message => {
         switch (message) {
           case 'CIVILSUITE': {
-              this.navItems = this.navService.makeSideNavigationItems('100'); //civilSuiteNavItems;
+              this.navItems = this.navService.makeSideNavigationItems('100'); // civilSuiteNavItems;
               console.log(this.navItems);
               break;
             }
@@ -66,7 +66,7 @@ export class DefaultLayoutComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.authService.isTokenExpired()){
+    if (this.authService.isTokenExpired()) {
       this.router.navigate(['/login']);
     }
 
@@ -74,7 +74,7 @@ export class DefaultLayoutComponent implements OnInit {
 
     if ( this.authService.decodedToken) {
       this.loadUserRoles();
-      //this.loadAuthApps();
+      // this.loadAuthApps();
     } else {
       this.router.navigate(['/login']);
     }
@@ -82,13 +82,13 @@ export class DefaultLayoutComponent implements OnInit {
     this.trainingMode = environment.trainingMode;
     console.log(this.router.url);
 
-    if(this.router.url.includes('civil-suite')){
+    if (this.router.url.includes('civil-suite')) {
       this.signalService.setActiveModule('CIVILSUITE');
-    }else if(this.router.url.includes('users')){
+    } else if (this.router.url.includes('users')) {
       this.signalService.setActiveModule('USERS');
-    }else if(this.router.url.includes('geo-loc')){
+    } else if (this.router.url.includes('geo-loc')) {
       this.signalService.setActiveModule('APPADMIN');
-    }else if(this.router.url.includes('app-admin')){
+    } else if (this.router.url.includes('app-admin')) {
       this.signalService.setActiveModule('APPADMIN');
     }
 
