@@ -97,7 +97,7 @@ export class DefaultLayoutComponent implements OnInit {
 
 
   loadUserRoles() {
-    const userId = this.authService.decodedToken.nameid;
+    const userId = this.authService.decodedToken.id;
     this.userRoleService.getAllByUser(userId).subscribe((data: any) => {
       this.userRoles = data;
       console.log(data);

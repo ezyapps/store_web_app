@@ -38,7 +38,7 @@ export class AuthService {
 
   isAuthorizedAppModule(appCode: string) {
     try {
-      if (this.decodedToken.IsSuperAdmin === '1') {
+      if (this.decodedToken.isSuperAdmin === 1) {
         return true;
       } else {
         const obj = this.userApps?.find(r => r.appCode === appCode);
@@ -52,7 +52,7 @@ export class AuthService {
 
   isAuthorizedRight(rightCode: string) {
     try {
-      if (this.decodedToken.IsSuperAdmin === '1') {
+      if (this.decodedToken.isSuperAdmin === 1) {
         return true;
       } else {
         return this.userAllRights?.find(r => r.rightCode === rightCode) !== undefined;
@@ -108,9 +108,9 @@ export class AuthService {
   loadActiveToken() {
     return this.http.get(this.baseUrl + 'generatetoken').pipe(
       map((response: any) => {
-        const user = response;
-        if (user) {
-          localStorage.setItem('token', user.token);
+        const token = response;
+        if (token) {
+          localStorage.setItem('token', token);
           this.decodeToken();
         }
       })

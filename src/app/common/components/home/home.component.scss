@@ -2,10 +2,10 @@ body{
   background: #FFFFFF;
 }
 img {
-  min-height: 300px !important;
-  max-height: 300px !important;
-  min-width: 100%;
-  max-width: 100%;
+  min-height: 250px !important;
+  max-height: 250px !important;
+  // min-width: 100%;
+  // max-width: 100%;
   object-fit: cover;
   object-position: center; // You can change this to bottom, right or left depending
    // on the position you want.
