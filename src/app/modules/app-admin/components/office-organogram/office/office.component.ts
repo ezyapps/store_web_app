@@ -23,61 +23,62 @@ import { OfficeLevelService } from '../../../services/office-level.service';
 export class OfficeComponent implements OnInit {
 
   model: any = {};
-  ministries: Ministry[];
-  officeLevels: OfficeLevel[];
+  // ministries: Ministry[];
+  // officeLevels: OfficeLevel[];
   offices: GovtOffice[];
   upperOffices: GovtOffice[];
-  divisions: GeoDivision[];
-  districts: GeoDistrict[];
-  upazilas: GeoUpazila[];
-  unions: GeoUnion[];
-  selectedDivCode: string = '00';
-  selectedDistCode: string = '00';
-  selectedUpazilaCode: string = '00';
-  selectedUnionCode: string = '00';
-  selectedGeoLevel: number = 0;
+  // divisions: GeoDivision[];
+  // districts: GeoDistrict[];
+  // upazilas: GeoUpazila[];
+  // unions: GeoUnion[];
+  // selectedDivCode: string = '00';
+  // selectedDistCode: string = '00';
+  // selectedUpazilaCode: string = '00';
+  // selectedUnionCode: string = '00';
+  // selectedGeoLevel: number = 0;
   constructor(
-    private ministryService: MinistryService,
-    private officeLevelService:  OfficeLevelService,
+    // private ministryService: MinistryService,
+    // private officeLevelService:  OfficeLevelService,
+    // private upazilaService: UpazilaService,
+    // private distService: DistrictService,
+    // private divService: DivisionService,
+    // private unionService: UnionService,
+
     private officeService:  GovtOfficeService,
-    private twister: AlertifyService,
-    private upazilaService: UpazilaService,
-    private distService: DistrictService,
-    private divService: DivisionService,
-    private unionService: UnionService
+    private twister: AlertifyService
   ) { }
 
   ngOnInit() {
-    this.loadMinistries();
-    this.loadDivisions();
+    // this.loadMinistries();
+    // this.loadDivisions();
+    this.loadOffices();
+    this.loadUpperLevelOffices();
   }
 
-  loadMinistries(){
-    this.ministryService.findAll().subscribe(
-      (data: Ministry[]) => {
-        this.ministries = data;
-      },
-      error => {
-        this.twister.error(error.message);
-      }
-    )
-  }
+  // loadMinistries() {
+  //   this.ministryService.findAll().subscribe(
+  //     (data: Ministry[]) => {
+  //       this.ministries = data;
+  //     },
+  //     error => {
+  //       this.twister.error(error.message);
+  //     }
+  //   );
+  // }
 
   loadOffices() {
-    let geoCode ="-", officeName = "-";
-    if(this.selectedDivCode !== '00') {geoCode = this.selectedDivCode;}
-    if(this.selectedDistCode !== '00') geoCode += '-'+this.selectedDistCode;
-    if(this.selectedUpazilaCode !== '00') geoCode += '-'+this.selectedUpazilaCode;
-    if(this.selectedUnionCode !== '00') geoCode += '-'+this.selectedUnionCode;
+    // let geoCode = '-', officeName = '-';
+    // if ( this.selectedDivCode !== '00') {geoCode = this.selectedDivCode; }
+    // if (this.selectedDistCode !== '00') {geoCode += '-' + this.selectedDistCode; }
+    // if (this.selectedUpazilaCode !== '00') {geoCode += '-' + this.selectedUpazilaCode; }
+    // if (this.selectedUnionCode !== '00') {geoCode += '-' + this.selectedUnionCode; }
 
-    if(this.model.name === undefined)
-    {
-      officeName = '-';
-    }else
-    officeName = this.model.name;
+    // if ( this.model.name === undefined) {
+    //   officeName = '-';
+    // } else { officeName = this.model.name; }
 
-    //this.officeService.getAllByMinistryOfficeLevel(this.model.officeLevelId).subscribe (
-    this.officeService.getAllByMinistryOfficeLevelGeoCodeAndName(this.model.officeLevelId, geoCode, officeName).subscribe (
+    // this.officeService.getAllByMinistryOfficeLevel(this.model.officeLevelId).subscribe (
+    this.officeService.getOfficeList().subscribe (
     (data: GovtOffice[]) => {
         this.offices = data;
       }, error => {
@@ -86,29 +87,29 @@ export class OfficeComponent implements OnInit {
     );
   }
 
-  loadOfficeLevels() {
-    this.officeLevelService.getAll(this.model.ministryId).subscribe(
-      (data: OfficeLevel[]) => {
-        this.officeLevels = data;
-      },
-      error => {
-        this.twister.error(error.message);
-      }
-    )
-  }
-  onOfficeLevelChange(){
-    this.selectedGeoLevel = 0;
-    if(this.model.officeLevelId)
-      this.selectedGeoLevel = +this.officeLevels.find(x => x.id === this.model.officeLevelId).geoLevel;
-    this.selectedDivCode = '00';
-    this.selectedDistCode = '00';
-    this.selectedUpazilaCode = '00';
-    this.selectedUnionCode = '00';
-    this.loadUpperLevelOffices();
-    this.loadOffices();
-  }
-  loadUpperLevelOffices(){
-    this.officeService.getUpperLevelOfficesByMinistryOfficeLevel(this.model.officeLevelId).subscribe (
+  // loadOfficeLevels() {
+  //   this.officeLevelService.getAll(this.model.ministryId).subscribe(
+  //     (data: OfficeLevel[]) => {
+  //       this.officeLevels = data;
+  //     },
+  //     error => {
+  //       this.twister.error(error.message);
+  //     }
+  //   );
+  // }
+  // onOfficeLevelChange(){
+  //   this.selectedGeoLevel = 0;
+  //   if(this.model.officeLevelId)
+  //     this.selectedGeoLevel = +this.officeLevels.find(x => x.id === this.model.officeLevelId).geoLevel;
+  //   this.selectedDivCode = '00';
+  //   this.selectedDistCode = '00';
+  //   this.selectedUpazilaCode = '00';
+  //   this.selectedUnionCode = '00';
+  //   this.loadUpperLevelOffices();
+  //   this.loadOffices();
+  // }
+  loadUpperLevelOffices() {
+    this.officeService.getOfficeList().subscribe (
       (data: GovtOffice[]) => {
         this.upperOffices = data;
       }, error => {
@@ -116,48 +117,49 @@ export class OfficeComponent implements OnInit {
       }
     );
   }
-  loadDivisions() {
-    this.divService.findAll().subscribe(
-      (data: GeoDivision[]) => {
-        this.divisions = data;
-      }, error => {
-        this.twister.error(error.message);
-      }
-    );
-  }
 
-  loadDistricts() {
-    this.distService.getAll(this.selectedDivCode).subscribe (
-      (data: GeoDistrict[]) => {
-        this.districts = data;
-      }, error => {
-        this.twister.error(error.message);
-      }
-    );
-  }
+  // loadDivisions() {
+  //   this.divService.findAll().subscribe(
+  //     (data: GeoDivision[]) => {
+  //       this.divisions = data;
+  //     }, error => {
+  //       this.twister.error(error.message);
+  //     }
+  //   );
+  // }
 
-  loadUpazilas() {
-    this.upazilaService.getAll(this.selectedDistCode).subscribe(
-      (data: GeoUpazila[]) => {
-        console.log(data);
-        this.upazilas = data;
-      }, error => {
-        this.twister.error(error.message);
-      }
-    );
-  }
+  // loadDistricts() {
+  //   this.distService.getAll(this.selectedDivCode).subscribe (
+  //     (data: GeoDistrict[]) => {
+  //       this.districts = data;
+  //     }, error => {
+  //       this.twister.error(error.message);
+  //     }
+  //   );
+  // }
 
-  loadUnions() {
-    this.unionService.getAll(this.selectedDistCode+'-'+this.selectedUpazilaCode).subscribe(
-      (data: GeoUnion[]) => {
-        this.unions = data;
-      }, error => {
-        this.twister.error(error.message);
-      }
-    );
-  }
+  // loadUpazilas() {
+  //   this.upazilaService.getAll(this.selectedDistCode).subscribe(
+  //     (data: GeoUpazila[]) => {
+  //       console.log(data);
+  //       this.upazilas = data;
+  //     }, error => {
+  //       this.twister.error(error.message);
+  //     }
+  //   );
+  // }
+
+  // loadUnions() {
+  //   this.unionService.getAll(this.selectedDistCode+'-'+this.selectedUpazilaCode).subscribe(
+  //     (data: GeoUnion[]) => {
+  //       this.unions = data;
+  //     }, error => {
+  //       this.twister.error(error.message);
+  //     }
+  //   );
+  // }
   saveNewOffice() {
-    this.model.geoCode = this.selectedDivCode+'-'+this.selectedDistCode+'-'+this.selectedUpazilaCode+'-'+this.selectedUnionCode;
+    // this.model.geoCode = this.selectedDivCode+'-'+this.selectedDistCode+'-'+this.selectedUpazilaCode+'-'+this.selectedUnionCode;
     this.officeService.save(this.model).subscribe(
       (data: GovtOffice) => {
         this.loadOffices();
@@ -165,6 +167,6 @@ export class OfficeComponent implements OnInit {
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
 }

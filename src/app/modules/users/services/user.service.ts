@@ -20,14 +20,14 @@ export class UserService extends CrudService<any, string> {
     return this._http.get<any[]>(this.baseUrl + '/me');
   }
   uploadPhoto(imgBase64Str): Observable<any> {
-    return this._http.post<any>(this.baseUrl+'/upload-photo', {photobase64str: imgBase64Str},{reportProgress:true});
+    return this._http.post<any>(this.baseUrl + '/upload-photo', {photobase64str: imgBase64Str}, { reportProgress: true});
   }
 
   uploadProfile(profileModel): Observable<any> {
-    return this._http.post<any>(this.baseUrl+'/update-profile', profileModel);
+    return this._http.post<any>(this.baseUrl + '/update-profile', profileModel);
   }
 
-  getPhotos(userId): Observable<UserPhoto[]>{
+  getPhotos(userId): Observable<UserPhoto[]> {
     return this._http.get<UserPhoto[]>(this.baseUrl + '/get-photos/' + userId);
   }
 

@@ -3,7 +3,7 @@
     <div class="pagelabel">
       <div class="row" style="margin-bottom: 2px;">
         <div class="col-sm-6">
-          <ol class="pagetitle" style="margin-bottom: 0rem;">অফিস সমূহ</ol>
+          <ol class="pagetitle" style="margin-bottom: 0rem;">Office List</ol>
         </div>
         <div class="col-sm-4">
         </div>
@@ -22,31 +22,31 @@
                     <table style="width: 100%;">
                       <thead>
                         <tr>
-                          <th>মন্ত্রণালয়</th>
-                          <th>অফিস স্তর</th>
-                          <th>উর্ধতন অফিস</th>
-                          <th>অফিসের কোড</th>
-                          <th>অফিসের নাম</th>
+                          <!-- <th>মন্ত্রণালয়</th>
+                          <th>অফিস স্তর</th> -->
+                          <th>Parent Office</th>
+                          <th>Office Code</th>
+                          <th>Office Name</th>
                           <th></th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>
+                          <!-- <td>
                             <select id="ministryId" name="ministryId" [(ngModel)]="model.ministryId" (change)="loadOfficeLevels()"
                               class="form-control" required >
                               <option value="">- Please Select -</option>
                               <option *ngFor="let ministry of ministries" [value]="ministry.id">{{ministry.name}}</option>
                             </select>
-                          </td>
-                          <td>
+                          </td> -->
+                          <!-- <td>
                             <select id="officeLevelId" name="officeLevelId" [(ngModel)]="model.officeLevelId" (change)="onOfficeLevelChange()"
                               class="form-control" required >
                               <option value="">- Please Select -</option>
                               <option *ngFor="let officeLevel of officeLevels" [value]="officeLevel.id">
                                 {{officeLevel.name}}</option>
                             </select>
-                          </td>
+                          </td> -->
                           <td>
                             <select id="parentOfficeId" name="parentOfficeId" [(ngModel)]="model.parentOfficeId"
                               class="form-control" >
@@ -64,44 +64,50 @@
                           </td>
                         </tr>
                         <tr>
-                          <th>বিভাগ</th>
-                          <th>জেলা</th>
-                          <th>উপজেলা</th>
-                          <th>ইউনিয়ন</th>
+                          <th>Address</th>
+                          <th>Latitude</th>
+                          <th>Longitude</th>
+                          <th> </th>
                           <th></th>
                         </tr>
                         <tr>
                           <td>
-                            <select id="divCode" name="divCode" class="form-control"
+                            <input type="text" id="address" name="address" [(ngModel)]="model.address"
+                            class="form-control" placeholder="Address" required />
+                            <!-- <select id="divCode" name="divCode" class="form-control"
                               [(ngModel)]="selectedDivCode" [disabled]="selectedGeoLevel<2" (change)="loadDistricts(); loadOffices()">
                               <option value="00">--</option>
                               <option *ngFor="let division of divisions" [value]="division.code"
                               >{{division.name}}</option>
-                            </select>
+                            </select> -->
                           </td>
                           <td>
-                            <select id="distCode" name="distCode" class="form-control"
+                            <input type="number" id="lat" name="lat" [(ngModel)]="model.lat"
+                            class="form-control" placeholder="Lattitude" />
+                            <!-- <select id="distCode" name="distCode" class="form-control"
                               [(ngModel)]="selectedDistCode" [disabled]="selectedGeoLevel<3" (change)="loadUpazilas(); loadOffices()">
                               <option value="00">--</option>
                               <option *ngFor="let district of districts" [value]="district.code"
                               >{{district.name}}</option>
-                            </select>
+                            </select> -->
                           </td>
                           <td>
-                            <select id="upazilaCode" name="upazilaCode" class="form-control"
+                            <input type="number" id="lon" name="lon" [(ngModel)]="model.lon"
+                            class="form-control" placeholder="Longitude" />
+                            <!-- <select id="upazilaCode" name="upazilaCode" class="form-control"
                               [(ngModel)]="selectedUpazilaCode" [disabled]="selectedGeoLevel<4" (change)="loadUnions(); loadOffices()">
                               <option value="00">--</option>
                               <option *ngFor="let upazila of upazilas" [value]="upazila.code"
                               >{{upazila.name}}</option>
-                            </select>
+                            </select> -->
                           </td>
                           <td>
-                            <select id="unionCode" name="unionCode" class="form-control"
+                            <!-- <select id="unionCode" name="unionCode" class="form-control"
                               [(ngModel)]="selectedUnionCode" [disabled]="selectedGeoLevel<5" (change)="loadOffices();" >
                               <option value="00">--</option>
                               <option *ngFor="let union of unions" [value]="union.code"
                               >{{union.name}}</option>
-                            </select>
+                            </select> -->
                           </td>
                           <td>
                             <button type="submit" [disabled]="!officeLevelForm.valid" class="btn btn-primary" > সংরক্ষন </button>
@@ -124,21 +130,20 @@
     <p-table [value]="offices"  styleClass="p-datatable-sm p-datatable-striped">
       <ng-template pTemplate="header">
           <tr>
-            <th>মন্ত্রণালয়</th>
-            <th>উর্ধতন অফিস</th>
-            <th>অফিসের কোড</th>
-            <th>অফিসের নাম</th>
-            <th>ভৌগলিক কোড</th>
+            <th>Parent Office</th>
+            <th>Office Code</th>
+            <th>Office Name</th>
+            <th>Address</th>
             <th></th>
           </tr>
       </ng-template>
       <ng-template pTemplate="body" let-office>
           <tr>
-            <td>{{office.ministryName}}</td>
-            <td>{{office.parentOfficeName}}</td>
+            <td>{{office.parentOfficeId}}</td>
             <td>{{office.code}}</td>
             <td>{{office.name}}</td>
-            <td>{{office.geoCode}}</td>
+            <td>{{office.address}}</td>
+            <td></td>
             <td>
               <span (click)="model = office" > <i class="fa fa-edit"></i> </span>
                <!-- | <span (click)="model = office" > <i class="fa fa-trash"></i> </span> -->

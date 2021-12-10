@@ -22,14 +22,14 @@ const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'অ্যাপ অ্যাডমিন'
+      title: 'App Admin'
     },
     children: [
       {
         path: 'dashboard',
         component: AppAdminComponent,
         data: {
-          title: 'ড্যাশবোর্ড'
+          title: 'Dashboard'
         }
       },
       {
@@ -50,69 +50,69 @@ const routes: Routes = [
         path: 'offices',
         component: OfficeComponent,
         data: {
-          title: 'অফিস সমূহ'
+          title: 'Office List'
         }
       },
       {
         path: 'office-branches',
         component: OfficeBranchComponent,
         data: {
-          title: 'অফিসের শাখা সমূহ'
+          title: 'Office Branches'
         }
       },
       {
         path: 'office-structure',
         component: OfficeStructureComponent,
         data: {
-          title: 'অফিস কাঠামো'
+          title: 'Office Structure'
         }
       },
       {
         path: 'office-structure-right',
         component: OfficeStructureRightComponent,
         data: {
-          title: 'পদবী ভিত্তিক রাইটস'
+          title: 'Office Structure Wise Rights'
         }
       },
       {
         path: 'office-apps',
         component: OfficeAppsComponent,
         data: {
-          title: 'অফিস মডিউলস'
+          title: 'App Modules'
         }
       },
       {
         path: 'right-groups',
         component: RightGroupListComponent,
         data: {
-          title: 'রাইট গ্রুপ'
+          title: 'App Right Groups'
         }
       },
       {
         path: 'rights',
         component: RightsComponent,
         data: {
-          title: 'অ্যাপ রাইট সমূহ'
+          title: 'App Rights'
         }
       },
       {
         path: 'roles',
         data: {
-          title: 'পদ সমূহ'
+          title: 'App Roles'
         },
         children: [
           {
             path: '',
             component: RoleListComponent,
             data: {
-              title: 'পদের তালিকা'
+              title: 'List of Roles'
             }
           },
           {
             path: 'new',
             component: RoleNewComponent,
             data: {
-              title: 'নতুন পদ'
+              title: 'Add New Role'
             }
           }
         ]

@@ -21,7 +21,7 @@ export class OfficeBranchComponent implements OnInit {
   officeLevels: OfficeLevel[];
   offices: GovtOffice[];
   officeBranches: GovtOfficeBranch[];
-  
+
   constructor(
     private ministryService: MinistryService,
     private officeLevelService:  OfficeLevelService,
@@ -31,22 +31,22 @@ export class OfficeBranchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadMinistries();
+    // this.loadMinistries();
   }
 
-  loadMinistries(){
-    this.ministryService.findAll().subscribe(
-      (data: Ministry[]) => {
-        this.ministries = data;
-      },
-      error => {
-        this.twister.error(error.message);
-      }
-    )
-  }
+  // loadMinistries(){
+  //   this.ministryService.findAll().subscribe(
+  //     (data: Ministry[]) => {
+  //       this.ministries = data;
+  //     },
+  //     error => {
+  //       this.twister.error(error.message);
+  //     }
+  //   )
+  // }
 
   loadOffices() {
-    this.officeService.getAllByMinistryOfficeLevel(this.model.officeLevelId).subscribe (
+    this.officeService.getOfficeList().subscribe (
       (data: GovtOffice[]) => {
         this.offices = data;
       }, error => {
@@ -55,17 +55,18 @@ export class OfficeBranchComponent implements OnInit {
     );
   }
 
-  loadOfficeLevels() {
-    this.officeLevelService.getAll(this.model.ministryId).subscribe(
-      (data: OfficeLevel[]) => {
-        this.officeLevels = data;
-      },
-      error => {
-        this.twister.error(error.message);
-      }
-    )
-  }
-  loadOfficeBranches(){
+  // loadOfficeLevels() {
+  //   this.officeLevelService.getAll(this.model.ministryId).subscribe(
+  //     (data: OfficeLevel[]) => {
+  //       this.officeLevels = data;
+  //     },
+  //     error => {
+  //       this.twister.error(error.message);
+  //     }
+  //   )
+  // }
+
+  loadOfficeBranches() {
     this.officeBranchService.getAllByOffice(this.model.officeId).subscribe(
       (data: GovtOfficeBranch[]) => {
         this.officeBranches = data;
@@ -73,8 +74,9 @@ export class OfficeBranchComponent implements OnInit {
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
+
   saveNewOfficeBranch() {
     this.officeBranchService.save(this.model).subscribe(
       (data: GovtOfficeBranch) => {

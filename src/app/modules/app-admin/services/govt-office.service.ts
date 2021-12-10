@@ -10,27 +10,29 @@ import { GovtOffice } from '../models/govt-office.model';
 })
 export class GovtOfficeService extends CrudService<GovtOffice, string> {
 
-  baseUrl = environment.apiUrl + 'offices';
+  baseUrl = environment.apiUrl + 'app-core/offices';
   constructor(protected _http: HttpClient) {
-    super(_http, `${environment.apiUrl}offices`);
+    super(_http, `${environment.apiUrl}app-core/offices`);
   }
+  getOfficeList(): Observable<GovtOffice[]> {
+    return this._http.get<GovtOffice[]>(this.baseUrl);
+  }
+  // getAllByMinistry(ministryId): Observable<GovtOffice[]> {
+  //   return this._http.get<GovtOffice[]>(this.baseUrl + '/byministry/' + ministryId);
+  // }
 
-  getAllByMinistry(ministryId): Observable<GovtOffice[]> {
-    return this._http.get<GovtOffice[]>(this.baseUrl + '/byministry/' + ministryId);
-  }
+  // getAllByMinistryOfficeLevel(officeLevelId): Observable<GovtOffice[]> {
+  //   return this._http.get<GovtOffice[]>(this.baseUrl + '/byofficelevel/' + officeLevelId);
+  // }
+  // getAllByMinistryOfficeLevelGeoCodeAndName(officeLevelId, geoCode, officeName): Observable<GovtOffice[]> {
+  //   return this._http.get<GovtOffice[]>(this.baseUrl + '/byofficelevelgeocodeandname/' + officeLevelId+'/'+geoCode+'/'+officeName);
+  // }
 
-  getAllByMinistryOfficeLevel(officeLevelId): Observable<GovtOffice[]> {
-    return this._http.get<GovtOffice[]>(this.baseUrl + '/byofficelevel/' + officeLevelId);
-  }
-  getAllByMinistryOfficeLevelGeoCodeAndName(officeLevelId, geoCode, officeName): Observable<GovtOffice[]> {
-    return this._http.get<GovtOffice[]>(this.baseUrl + '/byofficelevelgeocodeandname/' + officeLevelId+'/'+geoCode+'/'+officeName);
-  }
+  // getAllOfficesByGeoLevel(geoLevel, officeName): Observable<GovtOffice[]> {
+  //   return this._http.get<GovtOffice[]>(this.baseUrl + '/bygeolevel/' + geoLevel+ '/'+ officeName);
+  // }
 
-  getAllOfficesByGeoLevel(geoLevel, officeName): Observable<GovtOffice[]> {
-    return this._http.get<GovtOffice[]>(this.baseUrl + '/bygeolevel/' + geoLevel+ '/'+ officeName);
-  }
-
-  getUpperLevelOfficesByMinistryOfficeLevel(officeLevelId): Observable<GovtOffice[]> {
-    return this._http.get<GovtOffice[]>(this.baseUrl + '/upperofficesbyofficelevel/' + officeLevelId);
-  }
+  // getUpperLevelOfficesByMinistryOfficeLevel(officeLevelId): Observable<GovtOffice[]> {
+  //   return this._http.get<GovtOffice[]>(this.baseUrl + '/upperofficesbyofficelevel/' + officeLevelId);
+  // }
 }

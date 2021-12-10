@@ -6,14 +6,14 @@ import * as alertify from 'alertifyjs';
 export class AlertifyService {
 
 constructor() { }
-confirm(title:string, message: string, okCallback: () => any, noCallback: () => any) {
+confirm(title: string, message: string, okCallback: () => any, noCallback: () => any) {
   alertify.confirm(title, message, (e: any) => {
     if (e) {
       okCallback();
     } else {}
   },
   (n: any) => {
-    if(n){
+    if (n) {
       noCallback();
     }
   });

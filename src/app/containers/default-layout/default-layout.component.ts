@@ -28,6 +28,7 @@ export class DefaultLayoutComponent implements OnInit {
   subscription: Subscription;
   baseUrl: string;
   trainingMode: boolean;
+  baseApiUrl: string;
 
   constructor(
     private signalService: SignalService,
@@ -80,6 +81,7 @@ export class DefaultLayoutComponent implements OnInit {
     }
     this.baseUrl = environment.apiUrl;
     this.trainingMode = environment.trainingMode;
+    this.baseApiUrl = environment.baseUrl;
     console.log(this.router.url);
 
     if (this.router.url.includes('civil-suite')) {

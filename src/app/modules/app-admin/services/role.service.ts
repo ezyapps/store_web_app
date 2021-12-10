@@ -8,7 +8,7 @@ import { Role } from '../models/role.model';
   providedIn: 'root'
 })
 export class RoleService {
-  baseUrl = environment.apiUrl + 'roles/';
+  baseUrl = environment.apiUrl + 'app-core/roles/';
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Role[]> {
@@ -18,10 +18,10 @@ export class RoleService {
     return this.http.get<Role[]>(this.baseUrl + officeId);
   }
   getAllByGeoLevel(geoLevel): Observable<Role[]> {
-    return this.http.get<Role[]>(this.baseUrl+'getbygeolevel/' + geoLevel);
+    return this.http.get<Role[]>(this.baseUrl + 'getbygeolevel/' + geoLevel);
   }
   getAllByGeoLevelWithCommon(geoLevel): Observable<Role[]> {
-    return this.http.get<Role[]>(this.baseUrl+'getbygeolevelwithcommon/' + geoLevel);
+    return this.http.get<Role[]>(this.baseUrl + 'getbygeolevelwithcommon/' + geoLevel);
   }
 
   saveRole(model: any): Observable<Role> {

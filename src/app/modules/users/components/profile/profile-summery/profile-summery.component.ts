@@ -31,12 +31,12 @@ export class ProfileSummeryComponent implements OnInit, OnChanges {
     this.subscription = this.signalService.getMessage().subscribe(
       message => {
         if (message === 'RELOAD-TOKEN') {
-          console.log("Reload Token Signal Received");
+          console.log('Reload Token Signal Received');
           this.setUserInfo();
         }
       });
    }
-  ngOnChanges(){
+  ngOnChanges() {
     this.setUserInfo();
   }
 
@@ -51,16 +51,16 @@ export class ProfileSummeryComponent implements OnInit, OnChanges {
         this.userInfo = data;
         console.log(data);
       },
-      error=> {
+      error => {
 
       });
     this.authService.decodeToken();
     if ( this.authService.decodedToken) {
-      this.userName = this.authService.decodedToken.unique_name;
-      this.userRole = this.authService.decodedToken.RoleName;
-      this.officeBranch = this.authService.decodedToken.BranchName;
-      this.officeName = this.authService.decodedToken.OfficeName;
-      this.photoUrl = this.baseApiUrl+'profile-pics/'+this.authService.decodedToken.PhotoUrl;
+      this.userName = this.authService.decodedToken.name;
+      this.userRole = this.authService.decodedToken.roleName;
+      this.officeBranch = this.authService.decodedToken.branchName;
+      this.officeName = this.authService.decodedToken.officeName;
+      this.photoUrl = this.baseApiUrl + this.authService.decodedToken.photoUrl;
     }
   }
 
