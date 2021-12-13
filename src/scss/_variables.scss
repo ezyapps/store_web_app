@@ -1,8 +1,8 @@
 // Variable overrides
 $body-bg:                         rgba(255, 255, 255, 0.808) !default;
-$breadcrumb-bg:                   rgba(#FFFFFF, 1.0) !default;
-$breadcrumb-margin-bottom:        0.1rem !default;
-
+$breadcrumb-bg:                   rgba(107, 50, 107, 0.90) !default;
+$breadcrumb-margin-bottom:        0.05rem !default;
+$breadcrumb-active-color:         $body-bg;
 
 // CoreUI Variables
 
@@ -13,27 +13,27 @@ $layout-transition-speed:             .25s !default;
 // Navbar
 
 $navbar-height:                       70px !default;
-$navbar-bg:                           rgba(107, 50, 107, 0.90) !default; // rgba(103, 141, 13, 0.479)
+$navbar-bg:                           rgba(255, 255, 255, 0.9) !default; // rgba(103, 141, 13, 0.479)
 
 $navbar-brand-width:                  155px !default;
 $navbar-brand-bg:                     transparent !default;
 $navbar-brand-border:                 0 !default;
 
-$navbar-color:                        rgb(255, 255, 255) !default;
-$navbar-hover-color:                  #fffb00 !default;
-$navbar-active-color:                 #fffb00 !default;
+$navbar-color:                        rgba(107, 50, 107, 0.90) !default;
+$navbar-hover-color:                  #0066ff !default;
+$navbar-active-color:                 #0051ff !default;
 $navbar-disabled-color:               gray !default;
 
 
 // Sidebar
 
 $sidebar-color:                       rgb(27, 44, 63) !default;
-$sidebar-bg:                          rgba(244, 245, 243, 0.938) !default; //rgba(51, 66, 15, 0.5)
+$sidebar-bg:                          rgba(107, 50, 107, 0.2) !default; //rgba(51, 66, 15, 0.5)
 
 // Sidebar Header
 
 $sidebar-header-height:               auto !default;
-$sidebar-header-bg:                   rgba(0, 0, 0, 0.596) !default;
+$sidebar-header-bg:                   rgba(233, 0, 0, 1) !default;
 $sidebar-header-padding-y:            .75rem !default;
 $sidebar-header-padding-x:            1rem !default;
 
@@ -47,35 +47,36 @@ $sidebar-header-padding-x:            1rem !default;
 // Sidebar Navigation
 
  $sidebar-nav-color:                   rgb(4, 37, 87) !default;
- $sidebar-nav-title-padding-y:         .75rem !default;
- $sidebar-nav-title-padding-x:         1.25rem !default;
-$sidebar-nav-title-color:             #8c00ff !default;
+ $sidebar-nav-title-padding-y:         .89rem !default;
+ $sidebar-nav-title-padding-x:         1.35rem !default;
+ $sidebar-nav-title-color:             #ffffff !default;
+ $sidebar-nav-title-bg:              rgba(107, 50, 107, 0.80) !default;
 // // $sidebar-nav-title-color:             $gray-200 !default;
  $sidebar-nav-link-color:              rgb(10, 107, 7) !default;
-// $sidebar-nav-link-bg:                 transparent !default;
+ $sidebar-nav-link-bg:                 transparent !default;
 // // $sidebar-nav-link-icon-color:         $gray-600 !default;
 // $sidebar-nav-link-borders:            0 !default;
 
-// $sidebar-nav-link-hover-color:        #fff !default;
-// $sidebar-nav-link-hover-bg:           theme-color("primary") !default;
+ $sidebar-nav-link-hover-color:        #fff !default;
+ $sidebar-nav-link-hover-bg:           rgba(107, 50, 107, 0.90) !default;
 // $sidebar-nav-link-hover-icon-color:   #fff !default;
 // $sidebar-nav-link-hover-borders:      0 !default;
 
- $sidebar-nav-link-active-color:       rgb(146, 38, 5) !default;
-// $sidebar-nav-link-active-bg:          lighten($sidebar-bg, 5%) !default;
+ $sidebar-nav-link-active-color:       rgb(46, 38, 155) !default;
+ $sidebar-nav-link-active-bg:          lighten($sidebar-bg, 2%) !default;
 // $sidebar-nav-link-active-icon-color:  theme-color("primary") !default;
 // $sidebar-nav-link-active-borders:     0 !default;
 
- $sidebar-nav-link-disabled-color:       darken(rgb(102, 19, 19), 30%) !default;
-// $sidebar-nav-link-disabled-bg:          $sidebar-bg !default;
+ $sidebar-nav-link-disabled-color:       rgb(255, 251, 251) !default;
+ $sidebar-nav-link-disabled-bg:          $sidebar-bg !default;
 // $sidebar-nav-link-disabled-icon-color:  $sidebar-nav-link-icon-color !default;
 // $sidebar-nav-link-disabled-borders:     0 !default;
 
- $sidebar-nav-dropdown-color:          rgb(167, 4, 4) !default;
- $sidebar-nav-dropdown-bg:             rgba(201, 243, 124, 0.2) !default;
-// $sidebar-nav-dropdown-borders:        0 !default;
-// // $sidebar-nav-dropdown-indicator-color:$gray-600 !default;
-// $sidebar-nav-dropdown-indicator-hover-color:$sidebar-nav-link-hover-color;
+//  $sidebar-nav-dropdown-color:          rgb(107, 60, 86) !default;
+//  $sidebar-nav-dropdown-bg:             rgba(251, 252, 250, 0.959) !default;
+//  $sidebar-nav-dropdown-borders:        0 !default;
+//  $sidebar-nav-dropdown-indicator-color: gray !default;
+//  $sidebar-nav-dropdown-indicator-hover-color: $sidebar-nav-link-hover-color;
 
 // Sidebar Footer
 
@@ -121,7 +122,7 @@ $avatar-xs-status-width:              8px !default;
 
 // Cards
 $card-cap-bg:                       rgba($sidebar-bg, .8);
-$card-cap-color:                    rgb(14, 77, 148) !default;
+$card-cap-color:                    rgba(107, 50, 107, 0.90) !default;
 $card-color:                        black !default;
 $card-bg:                           white !default;
 $card-border-color:                 rgba($sidebar-bg, .325) !default;

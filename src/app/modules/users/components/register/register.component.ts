@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
   }
 
   saveEmployee() {
-    this.twister.confirm('Confirmation','আপনি কি নতুন কর্মকর্তা নিবন্ধন করতে ইচ্ছুক?', () => {
+    this.twister.confirm('Confirmation', 'আপনি কি নতুন কর্মকর্তা নিবন্ধন করতে ইচ্ছুক?', () => {
       this.userService.save(this.model).subscribe(
         (data: any) => {
           console.log(data);
@@ -82,7 +82,7 @@ export class RegisterComponent implements OnInit {
   }
 
   loadOffices() {
-    this.officeService.getAllByMinistryOfficeLevel(this.model.officeLevelId).subscribe (
+    this.officeService.getOfficeList().subscribe (
       (data: GovtOffice[]) => {
         this.offices = data;
       }, error => {

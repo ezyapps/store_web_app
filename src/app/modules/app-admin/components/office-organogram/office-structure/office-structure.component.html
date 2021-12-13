@@ -3,7 +3,7 @@
     <div class="pagelabel">
       <div class="row" style="margin-bottom: 2px;">
         <div class="col-sm-6">
-          <ol class="pagetitle" style="margin-bottom: 0rem;">অফিস কাঠামো</ol>
+          <ol class="pagetitle" style="margin-bottom: 0rem;">Office Structure</ol>
         </div>
         <div class="col-sm-4">
         </div>
@@ -21,8 +21,8 @@
                     <table>
                       <thead>
                         <tr>
-                          <th>মন্ত্রণালয়</th>
-                          <th>অফিস স্তর </th>
+                          <!-- <th>মন্ত্রণালয়</th>
+                          <th>অফিস স্তর </th> -->
                           <th>অফিস</th>
                           <th>শাখা</th>
                           <th>পদ</th>
@@ -31,7 +31,7 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td>
+                          <!-- <td>
                             <select id="ministryId" name="ministryId" [(ngModel)]="model.ministryId" (change)="loadOfficeLevels()"
                               class="form-control" required >
                               <option value="">- Please Select -</option>
@@ -46,7 +46,7 @@
                               <option *ngFor="let officeLevel of officeLevels" [value]="officeLevel.id">
                                 {{officeLevel.name}}</option>
                             </select>
-                          </td>
+                          </td> -->
                           <td>
                             <select id="officeId" name="officeId" [(ngModel)]="model.officeId"
                               class="form-control"  (change)="loadOfficeBranches()">

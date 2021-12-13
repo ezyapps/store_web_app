@@ -32,6 +32,7 @@ export class OfficeBranchComponent implements OnInit {
 
   ngOnInit() {
     // this.loadMinistries();
+    this.loadOffices();
   }
 
   // loadMinistries(){
@@ -78,13 +79,15 @@ export class OfficeBranchComponent implements OnInit {
   }
 
   saveNewOfficeBranch() {
+
     this.officeBranchService.save(this.model).subscribe(
       (data: GovtOfficeBranch) => {
         this.loadOfficeBranches();
+        this.model = {};
       },
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
 }

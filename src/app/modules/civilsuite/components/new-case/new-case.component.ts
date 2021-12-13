@@ -127,7 +127,7 @@ export class NewCaseComponent implements OnInit {
   }
 
   loadMouzas() {
-    this.loadLandOffices(); //this.modelTopshil.unionId
+    this.loadLandOffices(); // this.modelTopshil.unionId
     this.mouzaService.getAllByUpazila(this.modelTopshil.distCode + '-' + this.modelTopshil.upazilaCode).subscribe(
       (data: GeoMouza[]) => {
         this.mouzas = data;
@@ -138,9 +138,9 @@ export class NewCaseComponent implements OnInit {
     );
   }
 
-  loadUnionLandOfficeInfo(){
+  loadUnionLandOfficeInfo() {
     const selMouza = this.mouzas.find(r => r.name === this.modelTopshil.mouzaNo);
-    this.modelTopshil.landOfficeId = selMouza.unionLandOfficeId
+    this.modelTopshil.landOfficeId = selMouza.unionLandOfficeId;
     console.log(this.modelTopshil.landOfficeId);
     this.loadOfficeStructures();
   }
@@ -155,7 +155,7 @@ export class NewCaseComponent implements OnInit {
 
  console.log(geoCode);
 
-    this.officeServices.getAllOfficesByGeoLevel(geoCode, 'ইউনিয়ন ভূমি অফিস').subscribe((data: GovtOffice[]) => {
+    this.officeServices.getOfficeList().subscribe((data: GovtOffice[]) => { // geoCode, 'ইউনিয়ন ভূমি অফিস'
       this.offices = data;
       this.loadOfficeStructures();
     },
@@ -230,7 +230,7 @@ export class NewCaseComponent implements OnInit {
         }
       );
     }, () => {});
-    //console.log(this.model);
-    //console.log(this.modelTopshil);
+    // console.log(this.model);
+    // console.log(this.modelTopshil);
   }
 }

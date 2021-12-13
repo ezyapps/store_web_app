@@ -52,8 +52,8 @@ export class OfficeStructureRightComponent implements OnInit {
     private rightService: RightService,
     private applicationService: ApplicationService,
     private rightGroupService: RightGroupService,
-    //public ref?: DynamicDialogRef,
-    //public config?: DynamicDialogConfig
+    // public ref?: DynamicDialogRef,
+    // public config?: DynamicDialogConfig
   ) { }
 
   ngOnInit() {
@@ -67,17 +67,17 @@ export class OfficeStructureRightComponent implements OnInit {
   }
 
   loadOfficeStructures() {
-    this.officeStructureService.getAllByOfficeBranch(this.model.branchId).subscribe(
+    this.officeStructureService.getAllByOfficeBranch(this.model.branchId).subscribe (
       (data: GovtOfficeStructure[]) => {
         this.officeStructures = data;
       },
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
 
-  loadMinistries(){
+  loadMinistries() {
     this.ministryService.findAll().subscribe(
       (data: Ministry[]) => {
         this.ministries = data;
@@ -85,16 +85,16 @@ export class OfficeStructureRightComponent implements OnInit {
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
 
   onOfficeLevelChange() {
-    var geoLevel = this.officeLevels.find(x => x.id === this.model.officeLevelId).geoLevel;
+    const geoLevel = this.officeLevels.find(x => x.id === this.model.officeLevelId).geoLevel;
     this.loadOffices();
   }
 
   loadOffices() {
-    this.officeService.getAllByMinistryOfficeLevel(this.model.officeLevelId).subscribe (
+    this.officeService.getOfficeList().subscribe ( // getAllByMinistryOfficeLevel (this.model.officeLevelId)
       (data: GovtOffice[]) => {
         this.offices = data;
       }, error => {
@@ -104,18 +104,18 @@ export class OfficeStructureRightComponent implements OnInit {
   }
 
   loadOfficeLevels() {
-    this.officeLevelService.getAll(this.model.ministryId).subscribe(
+    this.officeLevelService.getAll(this.model.ministryId).subscribe (
       (data: OfficeLevel[]) => {
         this.officeLevels = data;
       },
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
 
-  loadOfficeBranches(){
-    this.officeBranchService.getAllByOffice(this.model.officeId).subscribe(
+  loadOfficeBranches() {
+    this.officeBranchService.getAllByOffice(this.model.officeId).subscribe (
       (data: GovtOfficeBranch[]) => {
         this.officeBranches = data;
         console.log(this.officeBranches);
@@ -123,7 +123,7 @@ export class OfficeStructureRightComponent implements OnInit {
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
 
   loadOfficeStructure(structureId: string) {
@@ -133,7 +133,7 @@ export class OfficeStructureRightComponent implements OnInit {
       }, error => {
         this.twister.error('Sorry! Failed to load data.');
       }
-    )
+    );
   }
   loadApplications() {
     this.applicationService.findAll().subscribe(
@@ -167,7 +167,7 @@ export class OfficeStructureRightComponent implements OnInit {
     );
   }
 
-  loadAccessRights(){
+  loadAccessRights() {
     console.log(this.structureId);
     this.structRightService.getAllByOfficeStructureId(this.structureId).subscribe(
       (data: any) => {
@@ -175,15 +175,14 @@ export class OfficeStructureRightComponent implements OnInit {
       }, error => {
         this.twister.error('Sorry! Problem while fetching data from server.');
       }
-    )
+    );
   }
 
   CheckNotExists(rightId) {
     return this.assignedRights.find( a => a.rightId === rightId) === undefined;
   }
 
-  saveRight(rightId)
-  {
+  saveRight(rightId) {
     const postModel = {
       OfficeStructureId: this.structureId,
       RightId: rightId
@@ -194,10 +193,10 @@ export class OfficeStructureRightComponent implements OnInit {
         this.loadAccessRights();
         this.twister.success('The Right has been added successfully');
       }, error => {
-        this.twister.error('Sorry! Failed to save data. Please try again. Error: '+error.message);
+        this.twister.error('Sorry! Failed to save data. Please try again. Error: ' + error.message);
       }
     );
-    //console.log(rightId);
-    //this.ref.close();
+    // console.log(rightId);
+    // this.ref.close();
   }
 }

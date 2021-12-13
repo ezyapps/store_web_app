@@ -12,9 +12,9 @@ import { GovtOffice } from '../models/govt-office.model';
 })
 export class GovtOfficeStructureService extends CrudService<GovtOfficeStructure, string> {
 
-  baseUrl = environment.apiUrl + 'officestructures';
+  baseUrl = environment.apiUrl + 'app-core/officestructures';
   constructor(protected _http: HttpClient) {
-    super(_http, `${environment.apiUrl}officestructures`);
+    super(_http, `${environment.apiUrl}app-core/officestructures`);
   }
 
   getAllByOfficeBranch(branchId): Observable<GovtOfficeStructure[]> {

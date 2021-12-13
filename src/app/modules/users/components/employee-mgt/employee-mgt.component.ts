@@ -43,10 +43,10 @@ export class EmployeeMgtComponent implements OnInit {
     this.loadMinistries();
   }
   assignRoleToEmployee() {
-    if(!this.empModel.id) {
+    if (!this.empModel.id) {
       this.twister.message('Sorry! Employee not selected.');
-    }else {
-      this.twister.confirm('Confirmation','Are you sure?', () => {
+    } else {
+      this.twister.confirm('Confirmation', 'Are you sure?', () => {
         const userRoleModel =  {userId: this.empModel.id, officeStructureId: this.model.officeStructureId, roleType: this.model.roleType};
         this.userRoleService.assignRole(userRoleModel).subscribe(() => {
             this.twister.success('কর্মকর্তার নতুন পদবী সংযুক্ত হয়েছে।');
@@ -57,7 +57,7 @@ export class EmployeeMgtComponent implements OnInit {
             this.twister.error(error.message);
           }
         );
-      }, ()=> {}
+      }, () => {}
       );
 
     }
@@ -66,31 +66,31 @@ export class EmployeeMgtComponent implements OnInit {
 
   searchEmployee() {
     this.empModel = {};
-    if(this.sModel.username) {
+    if (this.sModel.username) {
       this.userService.getByUserName(this.sModel.username).subscribe(
         (data: any) => {
           console.log(data);
           this.empModel = data;
           this.loadEmpCurrentRoles(this.empModel.id);
-        },error => {
+        }, error => {
           this.twister.error(error.message);
         }
       );
-    }else if(this.sModel.email) {
+    } else if (this.sModel.email) {
       this.userService.getByEmail(this.sModel.email).subscribe(
         (data: any) => {
           this.empModel = data;
           this.loadEmpCurrentRoles(this.empModel.id);
-        },error => {
+        }, error => {
           this.twister.error(error.message);
         }
       );
-    }else if(this.sModel.nid) {
+    } else if (this.sModel.nid) {
       this.userService.getByNID(this.sModel.nid).subscribe(
         (data: any) => {
           this.empModel = data;
           this.loadEmpCurrentRoles(this.empModel.id);
-        },error => {
+        }, error => {
           this.twister.error(error.message);
         }
       );
@@ -101,10 +101,10 @@ export class EmployeeMgtComponent implements OnInit {
     this.userRoleService.getAllByUser(empId).subscribe(
       (data: any) => {
         this.currentRoles = data;
-      },error => {
+      }, error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
 
   loadMinistries() {
@@ -123,7 +123,7 @@ export class EmployeeMgtComponent implements OnInit {
   }
 
   loadOffices() {
-    this.officeService.getAllByMinistryOfficeLevel(this.model.officeLevelId).subscribe (
+    this.officeService.getOfficeList().subscribe (
       (data: GovtOffice[]) => {
         this.offices = data;
       }, error => {

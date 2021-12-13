@@ -39,7 +39,7 @@ export class OfficeAppsComponent implements OnInit {
     this.loadOfficeApplications();
   }
 
-  loadMinistries(){
+  loadMinistries() {
     this.ministryService.findAll().subscribe(
       (data: Ministry[]) => {
         this.ministries = data;
@@ -47,11 +47,11 @@ export class OfficeAppsComponent implements OnInit {
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
 
   loadOffices() {
-    this.officeService.getAllByMinistryOfficeLevel(this.model.officeLevelId).subscribe (
+    this.officeService.getOfficeList().subscribe ( // getAllByMinistryOfficeLevel
       (data: GovtOffice[]) => {
         this.offices = data;
       }, error => {
@@ -68,8 +68,9 @@ export class OfficeAppsComponent implements OnInit {
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
+
   setNewOfficeApps() {
     console.log(this.model);
     this.officeAppsService.save(this.model).subscribe(
@@ -79,9 +80,10 @@ export class OfficeAppsComponent implements OnInit {
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
-  loadApplications(){
+
+  loadApplications() {
     this.applicationService.findAll().subscribe(
       (data: Application[]) => {
         this.applications = data;
@@ -91,6 +93,7 @@ export class OfficeAppsComponent implements OnInit {
       }
     );
   }
+
   loadOfficeApplications() {
     this.officeAppsService.getAppsByOfficeId(this.model.officeId).subscribe(
       (data: any[]) => {

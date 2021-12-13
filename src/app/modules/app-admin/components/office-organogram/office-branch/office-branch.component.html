@@ -23,8 +23,10 @@
                         <tr>
                           <!-- <th>মন্ত্রণালয়</th>
                           <th>অফিস স্তর</th> -->
-                          <th>অফিস</th>
-                          <th>শাখার নাম</th>
+                          <th>Office</th>
+                          <th>Branch Name</th>
+                          <th>Short Description</th>
+                          <th>Branch Location</th>
                           <th></th>
                           <!-- <th>অ্যাকশন</th> -->
                         </tr>
@@ -59,8 +61,16 @@
                             class="form-control" placeholder="" required />
                           </td>
                           <td>
-                            <button type="submit" [disabled]="!officeBranchForm.valid" class="btn btn-primary" > সংরক্ষন </button>
-                            <button type="button" *ngIf="model.nane" [disabled]="!officeBranchForm.valid" class="btn btn-light" (click)="model = {}" > বাতিল </button>
+                            <input type="text" id="description" name="description" [(ngModel)]="model.description"
+                            class="form-control" placeholder="" />
+                          </td>
+                          <td>
+                            <input type="text" id="location" name="location" [(ngModel)]="model.location"
+                            class="form-control" placeholder="" required />
+                          </td>
+                          <td>
+                            <button type="submit" [disabled]="!officeBranchForm.valid" class="btn btn-primary" > Create Branch </button>
+                            <button type="button" *ngIf="model.name" [disabled]="!officeBranchForm.valid" class="btn btn-light" (click)="model = {}" > Cancel </button>
                           </td>
                         </tr>
                       </tbody>
@@ -79,15 +89,17 @@
     <p-table [value]="officeBranches"  styleClass="p-datatable-sm p-datatable-striped">
       <ng-template pTemplate="header">
           <tr>
-            <th>অফিস</th>
-            <th>শাখার নাম</th>
+            <th>Branch Name</th>
+            <th>Short Description</th>
+            <th>Location</th>
             <th></th>
           </tr>
       </ng-template>
       <ng-template pTemplate="body" let-officebranch>
           <tr>
-            <td>{{officebranch.officeName}}</td>
             <td>{{officebranch.name}}</td>
+            <td>{{officebranch.description}}</td>
+            <td>{{officebranch.location}}</td>
             <td>
               <span (click)="model = officebranch" > <i class="fa fa-edit"></i> </span>
                <!-- |<span (click)="model = officebranch" > <i class="fa fa-trash"></i> </span> -->

@@ -42,7 +42,9 @@ export class OfficeStructureComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadMinistries();
+    // this.loadMinistries();
+    this.loadOffices();
+    this.loadRoles(0);
   }
 
   // loadRightAccessWindow(structureModel) {
@@ -67,38 +69,41 @@ export class OfficeStructureComponent implements OnInit {
       () => {
         this.twister.success('New structure has been added.');
         this.loadOfficeStructures();
-      },error => {
+      }, error => {
         this.twister.error(error.message);
       }
-    )
-  }
-  loadMinistries(){
-    this.ministryService.findAll().subscribe(
-      (data: Ministry[]) => {
-        this.ministries = data;
-      },
-      error => {
-        this.twister.error(error.message);
-      }
-    )
-  }
-  onOfficeLevelChange() {
-    var geoLevel = this.officeLevels.find(x => x.id === this.model.officeLevelId).geoLevel;
-    this.loadRoles(geoLevel);
-    this.loadOffices();
+    );
   }
 
+  // loadMinistries() {
+  //   this.ministryService.findAll().subscribe(
+  //     (data: Ministry[]) => {
+  //       this.ministries = data;
+  //     },
+  //     error => {
+  //       this.twister.error(error.message);
+  //     }
+  //   );
+  // }
+
+  // onOfficeLevelChange() {
+  //   const geoLevel = this.officeLevels.find(x => x.id === this.model.officeLevelId).geoLevel;
+  //   this.loadRoles(geoLevel);
+  //   this.loadOffices();
+  // }
+
   loadRoles(geoLevel: number) {
-    this.roleService.getAllByGeoLevelWithCommon(geoLevel).subscribe(
+    this.roleService.getAll().subscribe( // ByGeoLevelWithCommon: geoLevel
       (data: Role[]) => {
         this.roles = data;
-      },error => {
+      }, error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
+
   loadOffices() {
-    this.officeService.getAllByMinistryOfficeLevel(this.model.officeLevelId).subscribe (
+    this.officeService.getOfficeList().subscribe ( // this.model.officeLevelId
       (data: GovtOffice[]) => {
         this.offices = data;
       }, error => {
@@ -107,17 +112,18 @@ export class OfficeStructureComponent implements OnInit {
     );
   }
 
-  loadOfficeLevels() {
-    this.officeLevelService.getAll(this.model.ministryId).subscribe(
-      (data: OfficeLevel[]) => {
-        this.officeLevels = data;
-      },
-      error => {
-        this.twister.error(error.message);
-      }
-    )
-  }
-  loadOfficeBranches(){
+  // loadOfficeLevels() {
+  //   this.officeLevelService.getAll(this.model.ministryId).subscribe(
+  //     (data: OfficeLevel[]) => {
+  //       this.officeLevels = data;
+  //     },
+  //     error => {
+  //       this.twister.error(error.message);
+  //     }
+  //   );
+  // }
+
+  loadOfficeBranches() {
     this.officeBranchService.getAllByOffice(this.model.officeId).subscribe(
       (data: GovtOfficeBranch[]) => {
         this.officeBranches = data;
@@ -126,17 +132,17 @@ export class OfficeStructureComponent implements OnInit {
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
 
   loadOfficeStructures() {
-    this.officeStructureService.getAllByOfficeBranch(this.model.branchId).subscribe(
+    this.officeStructureService.getAllByOfficeBranch(this.model.branchId).subscribe (
       (data: GovtOfficeStructure[]) => {
         this.officeStructures = data;
       },
       error => {
         this.twister.error(error.message);
       }
-    )
+    );
   }
 }
